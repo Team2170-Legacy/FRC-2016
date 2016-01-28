@@ -29,6 +29,7 @@
 
 # ignore workstation-specific Eclipse files 
 *.xml 
+.settings/
 language.settings.xml 
 sysProps.xml 
  
