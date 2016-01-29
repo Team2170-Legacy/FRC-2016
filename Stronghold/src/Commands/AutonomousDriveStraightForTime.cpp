@@ -24,11 +24,21 @@ AutonomousDriveStraightForTime::AutonomousDriveStraightForTime(double DriveTime)
 
 // Called just before this Command runs the first time
 void AutonomousDriveStraightForTime::Initialize() {
+	 	Robot::driveTrain->ResetChassisYaw();
+	 	//Robot::driveTrain->movementData->ResetOdometer();
+	 	//Robot::driveTrain->movementData->Start();
+	 	Command::SetTimeout(15.0);
+
+	 	if (mVelocity != 0.0) {
+	 		Robot::driveTrain->setAutoVelocity(mVelocity);
+	 	}
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousDriveStraightForTime::Execute() {
+	//sets forward or backward
+	Robot::driveTrain->DriveStraight(bDriveBackwards);
 
 }
 
@@ -39,8 +49,26 @@ bool AutonomousDriveStraightForTime::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonomousDriveStraightForTime::End() {
-
+	Robot::driveTrain->StopMotors();
 }
+
+/*double AutonomousDriveStraightForTime::GetDriveTime(void) {
+	double fTime = 0.0;
+ 	if (bSmartDashCtrl) {
+ 		fTime = (double)SmartDashboard::GetNumber(mKey);
+ 		//Outputs what was
+ 		SmartDashboard::PutNumber("TimeInputted", fTime);
+ 		//Sets the range for the input
+ 		fTime = fmin(fmax(fTime, 0), 15);
+ 		//Displays the new number
+ 		SmartDashboard::PutNumber("ChassisDriveStraightForTimeInput", fTime);
+ 	}
+ 	else {
+ 		fTime = mDriveTime;
+ 	}
+ 	return fTime;
+ } */
+
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
