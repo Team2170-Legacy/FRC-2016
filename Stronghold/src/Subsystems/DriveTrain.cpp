@@ -89,7 +89,6 @@ void DriveTrain::StopMotors(void) {
 	driveMotors->StopMotor();
 	//Robot::chassis->movementData->Stop();
 
-
 	 mCurrentAutoMagnitude = mDefaultAutoMagnitude;
 	 mCurrentAutoRotationVelocity = mDefaultAutoRotatationVelocity;
 	 mAutoVelocity = mDefaultAutoVelocity;
