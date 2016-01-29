@@ -49,3 +49,36 @@ void DriveTrain::DriveWithJoysticks() {
 	robotDrive->ArcadeDrive(Robot::oi->getDriveJoystick()->GetX(),
 			Robot::oi->getDriveJoystick()->GetY(), true);
 }
+
+void DriveTrain::ResetChassisYaw() {
+	gyro->Reset();
+}
+
+float DriveTrain::ReadChassisYaw() {
+	return gyro->GetAngle();
+}
+
+void DriveTrain::DriveStraight(bool Backwards) {
+	if (Backwards)
+		{
+			DriveStraight(-mAutoVelocity);
+		}
+		else
+		{
+			DriveStraight(mAutoVelocity);
+		}
+}
+
+
+void DriveTrain::DriveStraight(float magnitude) {
+	Robot::driveTrain->robotDrive->SetSensitivity(0.1);
+		float ChassisAngle = ReadChassisYaw();
+
+		if (magnitude > 0.0) {
+			robotDrive->Drive(magnitude, mYawGain * ChassisAngle);
+		}
+		else {
+			robotDrive->Drive(magnitude, -mYawGain * ChassisAngle);
+
+		}
+}
