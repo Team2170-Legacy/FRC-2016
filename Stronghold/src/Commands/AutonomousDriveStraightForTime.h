@@ -35,7 +35,7 @@ public:
 
 private:
 	//double mDriveTime = 0.0;
-	double mVelocity = 0.0;
+	double mVelocity = 0.4;
 	std::string mKey = "";
 	//bool bSmartDashCtrl = false;
 	//double GetDriveTime(void);

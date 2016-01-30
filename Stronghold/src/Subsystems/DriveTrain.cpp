@@ -72,7 +72,7 @@ void DriveTrain::DriveStraight(bool Backwards) {
 
 
 void DriveTrain::DriveStraight(float magnitude) {
-	Robot::driveTrain->robotDrive->SetSensitivity(0.1);
+
 		float ChassisAngle = ReadChassisYaw();
 
 		if (magnitude > 0.0) {
@@ -86,8 +86,7 @@ void DriveTrain::DriveStraight(float magnitude) {
 
 void DriveTrain::StopMotors(void) {
 
-	driveMotors->StopMotor();
-	//Robot::chassis->movementData->Stop();
+	robotDrive->StopMotor();
 
 	 mCurrentAutoMagnitude = mDefaultAutoMagnitude;
 	 mCurrentAutoRotationVelocity = mDefaultAutoRotatationVelocity;

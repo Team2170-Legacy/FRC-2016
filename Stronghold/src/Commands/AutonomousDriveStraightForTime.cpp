@@ -27,18 +27,15 @@ void AutonomousDriveStraightForTime::Initialize() {
 	 	Robot::driveTrain->ResetChassisYaw();
 	 	//Robot::driveTrain->movementData->ResetOdometer();
 	 	//Robot::driveTrain->movementData->Start();
-	 	Command::SetTimeout(15.0);
+	 	Command::SetTimeout(m_DriveTime);
 
-	 	if (mVelocity != 0.0) {
-	 		Robot::driveTrain->setAutoVelocity(mVelocity);
-	 	}
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousDriveStraightForTime::Execute() {
 	//sets forward or backward
-	Robot::driveTrain->DriveStraight(bDriveBackwards);
+	Robot::driveTrain->DriveStraight(false);
 
 }
 
