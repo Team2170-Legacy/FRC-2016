@@ -7,25 +7,37 @@ Children:
     - Children:
       - Children: []
         Properties:
-          CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-            choices: &id001 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-              '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
-            default: '2'
-            name: CAN ID
-            validators: &id002 [CANID]
-            value: '1'
-        Base: CAN Talon
-        Name: CAN Talon Right
+          Type: !!robotbuilder.data.properties.ChoicesProperty
+            choices: &id001 [Victor, Jaguar, Talon, VictorSP, TalonSRX, Spark, SD540]
+            default: Talon
+            name: Type
+            validators: null
+            value: Talon
+          Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+            choices: &id002 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+              '11', '12', '13', '14', '15', '16', '17', '18', '19']
+            default: '0'
+            name: Output Channel (PWM)
+            validators: &id003 [PWMOutput]
+            value: '2'
+        Base: Speed Controller
+        Name: Speed Controller 2
       - Children: []
         Properties:
-          CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          Type: !!robotbuilder.data.properties.ChoicesProperty
             choices: *id001
-            default: '2'
-            name: CAN ID
-            validators: *id002
-            value: '2'
-        Base: CAN Talon
-        Name: CAN Talon Left
+            default: Talon
+            name: Type
+            validators: null
+            value: Talon
+          Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+            choices: *id002
+            default: '0'
+            name: Output Channel (PWM)
+            validators: *id003
+            value: '1'
+        Base: Speed Controller
+        Name: Speed Controller 1
       Properties:
         Left Motor Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Left Motor Inverted, validators: null, value: false}
@@ -38,7 +50,7 @@ Children:
           name: Right Motor
           type: PIDOutput
           validators: [RobotDrive2, ChildDropdownSelected]
-          value: Drive Train CAN Talon Right
+          value: Drive Train Speed Controller 2
         Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Maximum Output, validators: null, value: 1.0}
         Left Motor: !!robotbuilder.data.properties.ChildSelectionProperty
@@ -46,7 +58,7 @@ Children:
           name: Left Motor
           type: PIDOutput
           validators: [RobotDrive2, ChildDropdownSelected]
-          value: Drive Train CAN Talon Left
+          value: Drive Train Speed Controller 1
         Safety Expiration Time: !!robotbuilder.data.properties.DoubleProperty {default: 0.1,
           name: Safety Expiration Time, validators: null, value: 0.5}
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
@@ -77,7 +89,7 @@ Children:
         default: []
         name: Constants
         validators: null
-        value: &id003 []
+        value: &id004 []
     Base: Subsystem
     Name: Drive Train
   - Children:
@@ -98,17 +110,16 @@ Children:
     - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: [Victor, Jaguar, Talon, VictorSP, TalonSRX, Spark, SD540]
+          choices: *id001
           default: Talon
           name: Type
           validators: null
           value: Talon
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19']
+          choices: *id002
           default: '0'
           name: Output Channel (PWM)
-          validators: [PWMOutput]
+          validators: *id003
           value: '0'
       Base: Speed Controller
       Name: Ball Screw Speed Controller
@@ -124,7 +135,7 @@ Children:
         default: []
         name: Constants
         validators: null
-        value: *id003
+        value: *id004
     Base: Subsystem
     Name: Shooter
   Properties: {}
@@ -205,8 +216,7 @@ Children:
   Name: Commands
 Properties:
   Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Runbo\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\GEH-Magnet
-      School 1\git\FRC-2016'}
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\Runbo\git\FRC-2016'}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty

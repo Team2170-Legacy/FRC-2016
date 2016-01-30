@@ -27,7 +27,7 @@ OI::OI() {
     
 
     // SmartDashboard Buttons
-    SmartDashboard::PutData("Autonomous Drive Straight For Time", new AutonomousDriveStraightForTime());
+    SmartDashboard::PutData("Autonomous Drive Straight For Time", new AutonomousDriveStraightForTime(5.0));
     SmartDashboard::PutData("Tank Drive Teleop", new TankDriveTeleop());
     SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
 
