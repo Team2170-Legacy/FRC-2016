@@ -14,8 +14,10 @@ private:
 	//Grip Network Table
 	std::shared_ptr<NetworkTable> table;
 
+	pid_t pid = -1;		// process id for fork
+
 	const char *JAVA = "/usr/local/frc/JRE/bin/java";
-	char *GRIP_ARGS[5] = { "java", "-jar", "/home/lvuser/grip.jar",
+	const char *GRIP_ARGS[5] = { "java", "-jar", "/home/lvuser/grip.jar",
 			"/home/lvuser/project.grip", NULL };
 
 
@@ -25,6 +27,7 @@ public:
 	virtual ~VisionEngine();
 	void ProcessContours();
 	void StartGRIP();
+	void StopGRIP();
 };
 
 #endif /* SRC_VISIONENGINE_H_ */
