@@ -53,6 +53,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	Robot::driveTrain->IntializeMotorDrives();
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }
@@ -66,6 +67,7 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
+	Robot::driveTrain->IntializeMotorDrives();
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 }

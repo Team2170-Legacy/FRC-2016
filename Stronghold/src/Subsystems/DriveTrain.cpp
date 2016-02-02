@@ -91,4 +91,11 @@ void DriveTrain::StopMotors(void) {
 }
 
 void DriveTrain::IntializeMotorDrives() {
+	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	cANTalonLeft->EnableControl();
+	cANTalonLeft->Set(0.0);
+	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	cANTalonRight->EnableControl();
+	cANTalonRight->Set(0.0);
+
 }
