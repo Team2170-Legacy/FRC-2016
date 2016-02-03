@@ -35,7 +35,7 @@ void RobotMap::init() {
     
     driveTrainRobotDrive.reset(new RobotDrive(driveTrainCANTalonLeft, driveTrainCANTalonRight));
     
-    driveTrainRobotDrive->SetSafetyEnabled(true);
+    driveTrainRobotDrive->SetSafetyEnabled(false);
         driveTrainRobotDrive->SetExpiration(0.5);
         driveTrainRobotDrive->SetSensitivity(0.5);
         driveTrainRobotDrive->SetMaxOutput(1.0);
