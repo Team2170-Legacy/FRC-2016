@@ -32,6 +32,12 @@ void VisionEngine::ProcessContours() {
 		}
 		std::cout << std::endl;
 
+		double width = table->GetValue("width")->GetDouble();
+		double height = table->GetValue("height")->GetDouble();
+
+		double aspectRatio = width / height;
+
+		std::cout << "Aspect Ratio: " << aspectRatio << std::endl;
 }
 
 void VisionEngine::StartGRIP() {
