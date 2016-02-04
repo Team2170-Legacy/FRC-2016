@@ -26,13 +26,17 @@ TankDriveTeleop::TankDriveTeleop(): Command() {
 
 // Called just before this Command runs the first time
 void TankDriveTeleop::Initialize() {
-
+	mDriverControl = new Xbox360(Robot::oi->getDriveJoystick());
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TankDriveTeleop::Execute() {
-	Robot::driveTrain->ArcadeDriveWithJoysticks(Robot::oi->getDriveJoystick()->GetX(),
-			Robot::oi->getDriveJoystick()->GetY());
+	// Gather the XBox controller left and right joystick Y axes values from the most recently received
+	// Driver Station transmission packet, and send them to the chassis TankDriveWithTriggers method
+	double left = mDriverControl->GetLeftY();
+	double right = mDriverControl->GetRightY();
+
+	Robot::driveTrain->TankDriveWithTriggers(left, right, mDriverControl->GetTriggers());
 }
 
 // Make this return true when this Command no longer needs to run execute()

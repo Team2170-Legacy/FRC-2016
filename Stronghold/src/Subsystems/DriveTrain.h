@@ -14,6 +14,8 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
+#define DEADBAND(val, limit)	((fabs(val) < limit) ? 0.0 : val)
+
 /**
  *
  *
@@ -24,8 +26,9 @@ private:
 
 	float mAutoVelocity = 0.5;
 	float mYawGain = -0.3;
+	bool bDriveStraight = false;
 
-
+	double AxisPower(double axis, double exponent);
 
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
@@ -41,7 +44,7 @@ public:
 
 	void InitDefaultCommand();
 	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
-
+	void TankDriveWithTriggers(float Left, float Right, float Trigger);
 	void DriveStraight(bool Backwards = false);
 	void DriveStraight(float magnitude);
 

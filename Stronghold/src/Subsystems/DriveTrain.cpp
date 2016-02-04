@@ -98,3 +98,43 @@ void DriveTrain::IntializeMotorDrives() {
 	cANTalonRight->Set(0.0);
 
 }
+
+void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
+	float newLeft = 0.0;
+ 	float newRight = 0.0;
+ 	float ProcessedLeft = Left;
+ 	float ProcessedRight = Right;
+ 	double fExponent = 1.0;
+
+
+ 	ProcessedLeft = DEADBAND(AxisPower(ProcessedLeft, fExponent), 0.15);
+
+
+ 	ProcessedRight = DEADBAND(AxisPower(ProcessedRight, fExponent), 0.15);
+
+
+ 	newLeft = fmax(fmin(ProcessedLeft + (Trigger * .8), 1.0), -1.0);
+ 	newRight = fmax(fmin(ProcessedRight + (Trigger * .8), 1.0), -1.0);
+
+
+ 	if ((ProcessedLeft == 0) && (ProcessedRight == 0)) {
+ 		if (!bDriveStraight || DEADBAND(Trigger, 0.15) == 0) {
+ 			ResetChassisYaw();
+ 		}
+ 		bDriveStraight = true;
+ 		DriveStraight(Trigger * 0.8f);
+ 	}
+ 	else {
+ 		bDriveStraight = false;
+ 		robotDrive->TankDrive(newLeft, newRight, true);
+ 	}
+}
+
+double DriveTrain::AxisPower(double axis, double exponent) {
+	double retVal = 0.0;
+
+	retVal = pow(fabs(axis), exponent);
+	retVal = (axis < 0.0) ? -1.0 * retVal : retVal;
+
+	return retVal;
+}
