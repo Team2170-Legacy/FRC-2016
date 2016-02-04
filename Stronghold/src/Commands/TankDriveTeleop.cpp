@@ -31,7 +31,8 @@ void TankDriveTeleop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TankDriveTeleop::Execute() {
-	Robot::driveTrain->DriveWithJoysticks();
+	Robot::driveTrain->ArcadeDriveWithJoysticks(Robot::oi->getDriveJoystick()->GetX(),
+			Robot::oi->getDriveJoystick()->GetY());
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -46,7 +46,7 @@ bool AutonomousDriveStraightForTime::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonomousDriveStraightForTime::End() {
-	Robot::driveTrain->StopMotors();
+	Robot::driveTrain->DriveStraight(0.0f);
 }
 
 /*double AutonomousDriveStraightForTime::GetDriveTime(void) {

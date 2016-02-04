@@ -46,9 +46,8 @@ void DriveTrain::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-void DriveTrain::DriveWithJoysticks() {
-	robotDrive->ArcadeDrive(Robot::oi->getDriveJoystick()->GetX(),
-			Robot::oi->getDriveJoystick()->GetY(), true);
+void DriveTrain::ArcadeDriveWithJoysticks(float moveVal, float rotateVal) {
+	robotDrive->ArcadeDrive(moveVal, rotateVal, true);
 }
 
 void DriveTrain::ResetChassisYaw() {

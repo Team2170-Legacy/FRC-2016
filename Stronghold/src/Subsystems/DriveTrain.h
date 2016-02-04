@@ -40,7 +40,7 @@ public:
 	DriveTrain();
 
 	void InitDefaultCommand();
-	void DriveWithJoysticks();
+	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
 
 	void DriveStraight(bool Backwards = false);
 	void DriveStraight(float magnitude);
