@@ -25,12 +25,12 @@ class Xbox360
 public:
 	explicit Xbox360(std::shared_ptr<Joystick> NewJoystick);
 	
-	double GetLeftX();
-	double GetLeftY();
-	double GetRightX();
-	double GetRightY();
+	float GetLeftX();
+	float GetLeftY();
+	float GetRightX();
+	float GetRightY();
 	
-	double GetTriggers();
+	float GetTriggers();
 	
 	bool GetA();
 	bool GetB();

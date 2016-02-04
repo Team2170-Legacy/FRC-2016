@@ -18,7 +18,7 @@ Xbox360::Xbox360(std::shared_ptr<Joystick> NewJoystick)
  * 
  * @return The value of the axis from -1 to 1.
  */
-double Xbox360::GetLeftX() {
+float Xbox360::GetLeftX() {
 	return (mJoystick->GetRawAxis(0));
 }
 
@@ -28,7 +28,7 @@ double Xbox360::GetLeftX() {
  * 
  * @return The value of the axis from -1 to 1.
  */
-double Xbox360::GetLeftY() {
+float Xbox360::GetLeftY() {
 	return (-1.0 * mJoystick->GetRawAxis(1)); //Multiply output by -1 because GetAxis() returns the axis backwards.
 }
 
@@ -38,7 +38,7 @@ double Xbox360::GetLeftY() {
  * 
  * @return The value of the axis from -1 to 1.
  */
-double Xbox360::GetRightX() {
+float Xbox360::GetRightX() {
 	return (mJoystick->GetRawAxis(4));
 }
 
@@ -48,7 +48,7 @@ double Xbox360::GetRightX() {
  * 
  * @return The value of the axis from -1 to 1.
  */
-double Xbox360::GetRightY() {
+float Xbox360::GetRightY() {
 	return (-1.0 * mJoystick->GetRawAxis(5));
 }
 
@@ -58,7 +58,7 @@ double Xbox360::GetRightY() {
  * 
  * @return The value corresponding to the triggers.
  */
-double Xbox360::GetTriggers() {
+float Xbox360::GetTriggers() {
 	float Triggervalue =  (-1 * mJoystick->GetRawAxis(2) + mJoystick->GetRawAxis(3));
 	return Triggervalue;
 }
