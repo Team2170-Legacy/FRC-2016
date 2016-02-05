@@ -25,7 +25,7 @@ class DriveTrain: public Subsystem {
 private:
 
 	float mAutoVelocity = 0.5;
-	float mYawGain = -0.3;
+	float mYawGain = -0.2;
 	bool bDriveStraight = false;
 
 	double AxisPower(double axis, double exponent);
