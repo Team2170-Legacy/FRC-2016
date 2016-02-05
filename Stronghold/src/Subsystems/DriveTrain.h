@@ -43,6 +43,8 @@ public:
 	DriveTrain();
 
 	void InitDefaultCommand();
+	void SetClosedLoopMode();
+	void SetMotionProfileMode();
 	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
 	void TankDriveWithTriggers(float Left, float Right, float Trigger);
 	void DriveStraight(bool Backwards = false);

@@ -138,3 +138,21 @@ double DriveTrain::AxisPower(double axis, double exponent) {
 
 	return retVal;
 }
+
+void DriveTrain::SetClosedLoopMode() {
+	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPosition);
+	cANTalonLeft->EnableControl();
+	cANTalonLeft->Set(0.0);
+	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPosition);
+	cANTalonRight->EnableControl();
+	cANTalonRight->Set(0.0);
+}
+
+void DriveTrain::SetMotionProfileMode() {
+	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
+	cANTalonLeft->EnableControl();
+	cANTalonLeft->Set(0.0);
+	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
+	cANTalonRight->EnableControl();
+	cANTalonRight->Set(0.0);
+}
