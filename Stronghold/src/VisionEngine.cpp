@@ -32,8 +32,11 @@ void VisionEngine::ProcessContours() {
 		}
 		std::cout << std::endl;
 
-		llvm::ArrayRef<double> width = table->GetValue("width")->GetDoubleArray();
-		llvm::ArrayRef<double> height = table->GetValue("height")->GetDoubleArray();
+		std::vector<double> width = table->GetNumberArray("width", llvm::ArrayRef<double>());
+		std::vector<double> height = table->GetNumberArray("height", llvm::ArrayRef<double>());
+
+//		llvm::ArrayRef<double> width = table->GetValue("width")->GetDoubleArray();
+//		llvm::ArrayRef<double> height = table->GetValue("height")->GetDoubleArray();
 
 //		double width = table->GetValue("width")->GetDoubleArray().front();
 //		double height = table->GetValue("height")->GetDoubleArray().front();
@@ -47,7 +50,8 @@ void VisionEngine::ProcessContours() {
 				double aspectRatio = width[i] / height[i];
 
 				std::cout << "Contour: " << i + 1 << std::endl;
-				std::cout << "Width: " << width[i] << std::endl << "Height: " <<  height[i] << std::endl;
+				std::cout << "Width: " << width[i] << std::endl;
+				std::cout << "Height: " <<  height[i] << std::endl;
 				std::cout << "Aspect Ratio " << contourCount << ": " << aspectRatio << std::endl;
 			}
 		}
@@ -59,17 +63,24 @@ void VisionEngine::ProcessContours() {
 
 void VisionEngine::StartGRIP() {
 	/* Run GRIP in a new process */
-	pid = fork();
+	if (pid == -1)
+	{
+		pid = fork();
 
-	if (pid == 0) {
-		if (execl(JAVA, GRIP_ARGS[0], GRIP_ARGS[1], GRIP_ARGS[2],
-				GRIP_ARGS[3], GRIP_ARGS[4]) == -1) {
-			perror("Error running GRIP");
+		if (pid == 0)
+		{
+			if (execl(JAVA, GRIP_ARGS[0], GRIP_ARGS[1], GRIP_ARGS[2],
+					GRIP_ARGS[3], GRIP_ARGS[4]) == -1) {
+				perror("Error running GRIP");
+			}
 		}
 	}
 }
 
 void VisionEngine::StopGRIP() {
-	kill(pid,SIGKILL);
-
+	if (pid != -1)
+	{
+		kill(pid,SIGKILL);
+		pid = -1;
+	}
 }
