@@ -24,7 +24,7 @@ VisionEngine::~VisionEngine() {
 
 void VisionEngine::ProcessContours() {
 	//GRIP Network Table
-		std::cout << "Areas: ";
+		std::cout << "Area: ";
 		//get the array with an empty array as the default value
 		std::vector<double> arr = table->GetNumberArray("area", llvm::ArrayRef<double>());
 		for (unsigned int i = 0; i < arr.size(); i++) {
@@ -32,12 +32,29 @@ void VisionEngine::ProcessContours() {
 		}
 		std::cout << std::endl;
 
-		double width = table->GetValue("width")->GetDouble();
-		double height = table->GetValue("height")->GetDouble();
+		llvm::ArrayRef<double> width = table->GetValue("width")->GetDoubleArray();
+		llvm::ArrayRef<double> height = table->GetValue("height")->GetDoubleArray();
 
-		double aspectRatio = width / height;
+//		double width = table->GetValue("width")->GetDoubleArray().front();
+//		double height = table->GetValue("height")->GetDoubleArray().front();
 
-		std::cout << "Aspect Ratio: " << aspectRatio << std::endl;
+		size_t contourCount = width.size();
+
+		if (contourCount > 0)
+		{
+			for (int i = 0; i < contourCount; i++)
+			{
+				double aspectRatio = width[i] / height[i];
+
+				std::cout << "Contour: " << i + 1 << std::endl;
+				std::cout << "Width: " << width[i] << std::endl << "Height: " <<  height[i] << std::endl;
+				std::cout << "Aspect Ratio " << contourCount << ": " << aspectRatio << std::endl;
+			}
+		}
+		else
+		{
+			std::cout << "No contour" << std::endl;
+		}
 }
 
 void VisionEngine::StartGRIP() {
