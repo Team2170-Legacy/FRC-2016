@@ -23,6 +23,7 @@
  * @author ExampleAuthor
  */
 class TankDriveTeleop: public Command {
+	//forces to use an xbox controller
 private:
 	Xbox360* mDriverControl;
 public:

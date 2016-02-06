@@ -79,7 +79,6 @@ void DriveTrain::DriveStraight(float magnitude) {
 		}
 		else {
 			robotDrive->Drive(magnitude, -mYawGain * ChassisAngle);
-
 		}
 }
 
@@ -140,10 +139,18 @@ double DriveTrain::AxisPower(double axis, double exponent) {
 }
 
 void DriveTrain::SetClosedLoopMode() {
+
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPosition);
+	cANTalonLeft->SetFeedbackDevice(CANTalon::QuadEncoder);
+	cANTalonLeft->ConfigEncoderCodesPerRev(1000);
+	cANTalonLeft->SetPosition(0.0);
 	cANTalonLeft->EnableControl();
 	cANTalonLeft->Set(0.0);
+
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPosition);
+	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
+	cANTalonRight->ConfigEncoderCodesPerRev(1000);
+	cANTalonRight->SetPosition(0.0);
 	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 }
@@ -155,4 +162,10 @@ void DriveTrain::SetMotionProfileMode() {
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
 	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
+}
+
+void DriveTrain::Rotate(float rotateSpeed) {
+	//if positive clockwise else counterclockwise
+	//don't want squared value, for some reason
+	robotDrive->TankDrive(rotateSpeed,-rotateSpeed,false);
 }
