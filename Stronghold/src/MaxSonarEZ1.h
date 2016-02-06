@@ -15,12 +15,12 @@
 
 class MaxSonarEZ1 {
 private:
-	AnalogInput* sensor = nullptr;
+	std::shared_ptr<AnalogInput> sensor = nullptr;
 public:
 	MaxSonarEZ1();
-	MaxSonarEZ1(AnalogInput* AI);
-	double GetRangeInches();
-	double GetRangeMM();
+	MaxSonarEZ1(std::shared_ptr<AnalogInput> AI);
+	float GetRangeInches();
+	float GetRangeMM();
 	virtual ~MaxSonarEZ1();
 };
 
