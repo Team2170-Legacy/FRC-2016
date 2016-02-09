@@ -82,5 +82,6 @@ void VisionEngine::StopGRIP() {
 	{
 		kill(pid,SIGKILL);
 		pid = -1;
+		std::cout <<"GRIP stopped" <<std::endl;
 	}
 }
