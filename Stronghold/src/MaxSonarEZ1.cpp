@@ -11,16 +11,16 @@ MaxSonarEZ1::MaxSonarEZ1() {
 	// TODO Auto-generated constructor stub
 }
 
-MaxSonarEZ1::MaxSonarEZ1(AnalogInput* AI) {
+MaxSonarEZ1::MaxSonarEZ1(std::shared_ptr<AnalogInput> AI) {
 	sensor = AI;
 	sensor->SetAverageBits(4);
 }
 
-double MaxSonarEZ1::GetRangeInches() {
+float MaxSonarEZ1::GetRangeInches() {
 	return (sensor->GetAverageVoltage() * INCHES_PER_VOLT);
 }
 
-double MaxSonarEZ1::GetRangeMM() {
+float MaxSonarEZ1::GetRangeMM() {
 	return (GetRangeInches() * MM_PER_INCH);
 }
 

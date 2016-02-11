@@ -18,6 +18,7 @@ std::shared_ptr<CANTalon> RobotMap::driveTrainCANTalonRight;
 std::shared_ptr<CANTalon> RobotMap::driveTrainCANTalonLeft;
 std::shared_ptr<RobotDrive> RobotMap::driveTrainRobotDrive;
 std::shared_ptr<AnalogGyro> RobotMap::driveTrainGyro;
+std::shared_ptr<AnalogInput> RobotMap::driveTrainMaxSonarAI;
 std::shared_ptr<AnalogPotentiometer> RobotMap::shooterBallScrewPotentiometer;
 std::shared_ptr<SpeedController> RobotMap::shooterBallScrewSpeedController;
 
@@ -43,6 +44,9 @@ void RobotMap::init() {
     driveTrainGyro.reset(new AnalogGyro(0));
     lw->AddSensor("Drive Train", "Gyro", driveTrainGyro);
     driveTrainGyro->SetSensitivity(0.007);
+    driveTrainMaxSonarAI.reset(new AnalogInput(2));
+    lw->AddSensor("Drive Train", "Max Sonar AI", driveTrainMaxSonarAI);
+    
     shooterBallScrewPotentiometer.reset(new AnalogPotentiometer(1, 1.0, 0.0));
     lw->AddSensor("Shooter", "Ball Screw Potentiometer", shooterBallScrewPotentiometer);
     

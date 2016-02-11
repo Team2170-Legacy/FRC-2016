@@ -27,6 +27,7 @@ public:
 	static std::shared_ptr<CANTalon> driveTrainCANTalonLeft;
 	static std::shared_ptr<RobotDrive> driveTrainRobotDrive;
 	static std::shared_ptr<AnalogGyro> driveTrainGyro;
+	static std::shared_ptr<AnalogInput> driveTrainMaxSonarAI;
 	static std::shared_ptr<AnalogPotentiometer> shooterBallScrewPotentiometer;
 	static std::shared_ptr<SpeedController> shooterBallScrewSpeedController;
 
