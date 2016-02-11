@@ -66,6 +66,7 @@ void VisionEngine::StartGRIP() {
 	if (pid == -1)
 	{
 		pid = fork();
+		std::cout << "GRIP has begun operation" <<std::endl;
 
 		if (pid == 0)
 		{
