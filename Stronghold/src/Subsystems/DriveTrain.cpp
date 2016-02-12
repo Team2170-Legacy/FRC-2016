@@ -86,7 +86,7 @@ void DriveTrain::DriveStraight(float magnitude) {
 
 void DriveTrain::StopMotors(void) {
 
-	robotDrive->StopMotor();
+//	robotDrive->StopMotor();
 
 }
 
@@ -176,3 +176,7 @@ void DriveTrain::Rotate(float rotateSpeed) {
 	robotDrive->TankDrive(rotateSpeed,-rotateSpeed,false);
 }
 
+void DriveTrain::CommandChassisPosition(float position) {
+	cANTalonLeft->Set(position);
+	cANTalonRight->Set(position);
+}

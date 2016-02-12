@@ -53,6 +53,8 @@ public:
 	void TankDriveWithTriggers(float Left, float Right, float Trigger);
 	void DriveStraight(bool Backwards = false);
 	void DriveStraight(float magnitude);
+
+	void CommandChassisPosition(float position);
 	//turns the robot depending on whether negative or positive
 	void Rotate(float rotateSpeed);
 
