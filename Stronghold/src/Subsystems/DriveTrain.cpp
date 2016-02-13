@@ -108,6 +108,10 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
  	double fExponent = 1.0;
 
 
+ 	// make sure talons are in voltage drive mode
+	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+
  	ProcessedLeft = DEADBAND(AxisPower(ProcessedLeft, fExponent), 0.15);
 
 

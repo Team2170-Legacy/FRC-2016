@@ -16,6 +16,7 @@
 #include "Commands/ArcadeDriveTeleop.h"
 #include "Commands/AutonomousDefault.h"
 #include "Commands/AutonomousDriveStraightForTime.h"
+#include "Commands/AutonomousMotionProfile.h"
 #include "Commands/TankDriveTeleop.h"
 
 
