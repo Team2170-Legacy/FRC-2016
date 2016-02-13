@@ -47,7 +47,7 @@ void Robot::RobotInit() {
  * You can use it to reset subsystems before shutting down.
  */
 void Robot::DisabledInit(){
-	ve->StopGRIP();
+	//ve->StopGRIP();
 }
 
 void Robot::DisabledPeriodic() {

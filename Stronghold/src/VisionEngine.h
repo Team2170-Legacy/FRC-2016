@@ -20,6 +20,10 @@ private:
 	const char *GRIP_ARGS[5] = { "java", "-jar", "/home/lvuser/grip.jar",
 			"/home/lvuser/project.grip", NULL };
 
+	int bestContour = 0, contourAge = 0;
+	double bestContourRatio = 0.0, bestContourX = 0.0, bestContourY = 0.0;
+	const double CAMERA_OFFSET_X = 0.0, CAMERA_OFFSET_Y = 0.0;
+
 
 
 public:
