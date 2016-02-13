@@ -53,6 +53,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }

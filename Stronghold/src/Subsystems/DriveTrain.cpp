@@ -195,3 +195,28 @@ void DriveTrain::CommandChassisPosition(float position) {
 	cANTalonRight->Set(position);
 	}
 }
+
+double DriveTrain::ReadPositionError() {
+	return (cANTalonLeft->GetClosedLoopError()/1000.0);
+}
+
+void DriveTrain::SetVelocityMode() {
+cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+cANTalonLeft->EnableControl();
+cANTalonLeft->Set(0.0);
+cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+cANTalonRight->EnableControl();
+cANTalonRight->Set(0.0);
+}
+
+void DriveTrain::SetChassisVelocity(float velocity) {
+	if (cANTalonLeft->GetControlMode()==
+				CANSpeedController::ControlMode::kSpeed){
+			cANTalonLeft->Set(velocity);
+		}
+
+		if (cANTalonRight->GetControlMode()==
+				CANSpeedController::ControlMode::kSpeed){
+		cANTalonRight->Set(velocity);
+		}
+}
