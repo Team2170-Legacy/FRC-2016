@@ -86,7 +86,7 @@ void DriveTrain::DriveStraight(float magnitude) {
 
 void DriveTrain::StopMotors(void) {
 
-//	robotDrive->StopMotor();
+	robotDrive->StopMotor();
 
 }
 
@@ -109,8 +109,10 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
 
 
  	// make sure talons are in voltage drive mode
+
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+
 
  	ProcessedLeft = DEADBAND(AxisPower(ProcessedLeft, fExponent), 0.15);
 
@@ -150,6 +152,7 @@ void DriveTrain::SetClosedLoopMode() {
 	cANTalonLeft->SetFeedbackDevice(CANTalon::QuadEncoder);
 	cANTalonLeft->ConfigEncoderCodesPerRev(1000);
 	cANTalonLeft->SetPosition(0.0);
+	cANTalonLeft->SetSensorDirection(false);
 	cANTalonLeft->EnableControl();
 	cANTalonLeft->Set(0.0);
 
@@ -157,6 +160,7 @@ void DriveTrain::SetClosedLoopMode() {
 	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
 	cANTalonRight->ConfigEncoderCodesPerRev(1000);
 	cANTalonRight->SetPosition(0.0);
+	cANTalonRight->SetSensorDirection(false);
 	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 }
@@ -181,6 +185,13 @@ void DriveTrain::Rotate(float rotateSpeed) {
 }
 
 void DriveTrain::CommandChassisPosition(float position) {
-	cANTalonLeft->Set(position);
+	if (cANTalonLeft->GetControlMode()==
+			CANSpeedController::ControlMode::kPosition){
+		cANTalonLeft->Set(position);
+	}
+
+	if (cANTalonRight->GetControlMode()==
+			CANSpeedController::ControlMode::kPosition){
 	cANTalonRight->Set(position);
+	}
 }

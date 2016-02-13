@@ -53,7 +53,6 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	Robot::driveTrain->SetClosedLoopMode();
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }
