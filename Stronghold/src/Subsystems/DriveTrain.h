@@ -24,10 +24,11 @@
  */
 class DriveTrain: public Subsystem {
 private:
-
+	const unsigned short int kCountsPerRev = 360*4;	// 360 count encoder, x4 sampling
 	float mAutoVelocity = 0.5;
 	float mYawGain = -0.2;
 	bool bDriveStraight = false;
+
 
 	double AxisPower(double axis, double exponent);
 

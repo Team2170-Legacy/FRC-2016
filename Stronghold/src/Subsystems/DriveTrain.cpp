@@ -150,7 +150,7 @@ void DriveTrain::SetClosedLoopMode() {
 
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPosition);
 	cANTalonLeft->SetFeedbackDevice(CANTalon::QuadEncoder);
-	cANTalonLeft->ConfigEncoderCodesPerRev(1000);
+	cANTalonLeft->ConfigEncoderCodesPerRev(kCountsPerRev);
 	cANTalonLeft->SetPosition(0.0);
 	cANTalonLeft->SetSensorDirection(false);
 	cANTalonLeft->EnableControl();
@@ -158,7 +158,7 @@ void DriveTrain::SetClosedLoopMode() {
 
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPosition);
 	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
-	cANTalonRight->ConfigEncoderCodesPerRev(1000);
+	cANTalonRight->ConfigEncoderCodesPerRev(kCountsPerRev);
 	cANTalonRight->SetPosition(0.0);
 	cANTalonRight->SetSensorDirection(false);
 	cANTalonRight->EnableControl();
@@ -197,7 +197,7 @@ void DriveTrain::CommandChassisPosition(float position) {
 }
 
 double DriveTrain::ReadPositionError() {
-	return (cANTalonLeft->GetClosedLoopError()/1000.0);
+	return (cANTalonLeft->GetClosedLoopError()/kCountsPerRev);
 }
 
 void DriveTrain::SetVelocityMode() {
