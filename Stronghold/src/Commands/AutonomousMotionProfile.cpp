@@ -41,6 +41,7 @@ void AutonomousMotionProfile::End() {
 
 }
 
+
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonomousMotionProfile::Interrupted() {
@@ -49,5 +50,13 @@ void AutonomousMotionProfile::Interrupted() {
 
 AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* Profile) {
 	Requires(Robot::driveTrain.get());
-	mData.reset(Profile);
+	mDataPrimary.reset(Profile);
+	mDataSecondary.reset();
+}
+
+AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* Primary,
+		const ProfileData* Secondary) {
+	Requires(Robot::driveTrain.get());
+	mDataPrimary.reset(Primary);
+	mDataSecondary.reset(Secondary);
 }
