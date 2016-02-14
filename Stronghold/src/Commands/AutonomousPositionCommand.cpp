@@ -26,6 +26,7 @@ AutonomousPositionCommand::AutonomousPositionCommand(double Position): Command()
 // Called just before this Command runs the first time
 void AutonomousPositionCommand::Initialize() {
 	Robot::driveTrain->SetClosedLoopMode();
+	Robot::driveTrain->SetChassisPosition(m_Position);
 }
 
 // Called repeatedly when this Command is scheduled to run
