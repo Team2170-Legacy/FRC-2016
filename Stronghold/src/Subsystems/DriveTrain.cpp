@@ -109,7 +109,6 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
 
 
  	// make sure talons are in voltage drive mode
-
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 
@@ -210,13 +209,25 @@ cANTalonRight->Set(0.0);
 }
 
 void DriveTrain::SetChassisVelocity(float velocity) {
-	if (cANTalonLeft->GetControlMode()==
-				CANSpeedController::ControlMode::kSpeed){
-			cANTalonLeft->Set(velocity);
-		}
+	if (cANTalonLeft->GetControlMode()
+			== CANSpeedController::ControlMode::kSpeed) {
+		cANTalonLeft->Set(velocity);
+	}
 
-		if (cANTalonRight->GetControlMode()==
-				CANSpeedController::ControlMode::kSpeed){
+	if (cANTalonRight->GetControlMode()
+			== CANSpeedController::ControlMode::kSpeed) {
 		cANTalonRight->Set(velocity);
-		}
+	}
+}
+
+void DriveTrain::SetChassisPosition(float position) {
+	if (cANTalonLeft->GetControlMode()
+			== CANSpeedController::ControlMode::kPosition) {
+		cANTalonLeft->Set(position);
+	}
+
+	if (cANTalonRight->GetControlMode()
+			== CANSpeedController::ControlMode::kPosition) {
+		cANTalonRight->Set(position);
+	}
 }

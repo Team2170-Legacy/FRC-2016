@@ -49,6 +49,7 @@ public:
 
 	void InitDefaultCommand();
 	void SetClosedLoopMode();
+	void SetChassisPosition(float position);
 	void SetVelocityMode();
 	void SetChassisVelocity(float velocity);
 	void SetMotionProfileMode();
