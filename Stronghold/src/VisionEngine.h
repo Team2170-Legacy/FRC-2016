@@ -16,15 +16,13 @@ private:
 
 	pid_t pid = -1;		// process id for fork
 
-	const char *JAVA = "/usr/local/frc/JRE/bin/java";
-	const char *GRIP_ARGS[5] = { "java", "-jar", "/home/lvuser/grip.jar",
-			"/home/lvuser/project.grip", NULL };
-
-	int bestContour = 0, contourAge = 0;
+	unsigned bestContour = 0, contourAge = 0;
+	const unsigned kMaxContourAge = 10;
 	double bestContourRatio = 0.0, bestContourX = 0.0, bestContourY = 0.0;
 	const double CAMERA_OFFSET_X = 0.0, CAMERA_OFFSET_Y = 0.0;
 
-
+	const double kIdealAspectRatio = 1.6;
+	double ContourScore(double aspect);
 
 public:
 	VisionEngine();
