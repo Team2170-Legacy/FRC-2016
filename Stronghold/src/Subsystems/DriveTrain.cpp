@@ -290,7 +290,7 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 	}
 }
 
-TimerEventHandler DriveTrain::ServiceMotionProfile() {
+TimerEventHandler  DriveTrain::ServiceMotionProfile() {
 	cANTalonLeft->ProcessMotionProfileBuffer();
 	cANTalonRight->ProcessMotionProfileBuffer();
 }
