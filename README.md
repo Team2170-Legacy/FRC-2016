@@ -1,6 +1,4 @@
-# FRC-2016
-Team 2170 FRC 2016 "Stronghold"
-
-Glastonbury High School
-
-Glastonbury, CT USA
+# FRC-2016 "Stronghold"
+### FRC Team 2170
+#### Glastonbury High School
+#### Glastonbury, CT USA
