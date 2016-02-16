@@ -14,6 +14,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "../MaxSonarEZ1.h"
+#include "../ProfileData.h"
 
 #define DEADBAND(val, limit)	((fabs(val) < limit) ? 0.0 : val)
 
@@ -53,6 +54,13 @@ public:
 	void SetVelocityMode();
 	void SetChassisVelocity(float velocity);
 	void SetMotionProfileMode();
+	void FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel);
+	void FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
+			std::shared_ptr<const ProfileData> RightWheel);
+	TimerEventHandler ServiceMotionProfile();
+
+
+
 	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
 	void TankDriveWithTriggers(float Left, float Right, float Trigger);
 	void DriveStraight(bool Backwards = false);
