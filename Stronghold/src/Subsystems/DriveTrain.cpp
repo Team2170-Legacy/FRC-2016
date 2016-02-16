@@ -231,3 +231,66 @@ void DriveTrain::SetChassisPosition(float position) {
 		cANTalonRight->Set(position);
 	}
 }
+
+void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel) {
+	size_t i;
+	CANTalon::TrajectoryPoint pt;
+
+	pt.zeroPos = true;
+	pt.isLastPoint = false;
+
+	cANTalonLeft->ClearMotionProfileTrajectories();
+	cANTalonRight->ClearMotionProfileTrajectories();
+
+	for (i = 0; i < LeftWheel->size(); i++) {
+		// check if this is the last point
+		if ((i+1) == LeftWheel->size()) {
+			pt.isLastPoint = true;
+		}
+
+		pt.position = LeftWheel->at(i).at(0);
+		pt.velocity = LeftWheel->at(i).at(1);
+		pt.timeDurMs = LeftWheel->at(i).at(2);
+		cANTalonLeft->PushMotionProfileTrajectory(pt);
+
+		// Negative position and velocity for right side
+		pt.position = -pt.position;
+		pt.velocity = -pt.velocity;
+		cANTalonRight->PushMotionProfileTrajectory(pt);
+	}
+}
+
+void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
+		std::shared_ptr<const ProfileData> RightWheel) {
+	size_t i;
+	CANTalon::TrajectoryPoint pt;
+
+	pt.zeroPos = true;
+	pt.isLastPoint = false;
+
+	cANTalonLeft->ClearMotionProfileTrajectories();
+	cANTalonRight->ClearMotionProfileTrajectories();
+
+	for (i = 0; i < LeftWheel->size(); i++) {
+		// check if this is the last point
+		if ((i+1) == LeftWheel->size()) {
+			pt.isLastPoint = true;
+		}
+
+		pt.position = LeftWheel->at(i).at(0);
+		pt.velocity = LeftWheel->at(i).at(1);
+		pt.timeDurMs = LeftWheel->at(i).at(2);
+		cANTalonLeft->PushMotionProfileTrajectory(pt);
+
+		// Use right wheel profile for right side
+		pt.position = RightWheel->at(i).at(0);
+		pt.velocity = RightWheel->at(i).at(1);
+		pt.timeDurMs = RightWheel->at(i).at(2);
+		cANTalonRight->PushMotionProfileTrajectory(pt);
+	}
+}
+
+TimerEventHandler DriveTrain::ServiceMotionProfile() {
+	cANTalonLeft->ProcessMotionProfileBuffer();
+	cANTalonRight->ProcessMotionProfileBuffer();
+}
