@@ -30,12 +30,12 @@ void ShooterFlywheelHigh::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShooterFlywheelHigh::Execute() {
-
+	Robot::shooter->FlyWheelHighSpeed();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterFlywheelHigh::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true

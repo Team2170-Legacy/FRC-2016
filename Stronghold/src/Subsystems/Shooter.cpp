@@ -46,60 +46,79 @@ void Shooter::InitDefaultCommand() {
 }
 
 void Shooter::FlyWheelReverse() {
+	flyWheelMotor->Set(kFlyWheelReverseSpeed);
 }
 
 void Shooter::FlyWheelStop() {
+	flyWheelMotor->Set(kFlyWheelStop);
 }
 
 void Shooter::FlyWheelHighSpeed() {
+	flyWheelMotor->Set(kFlyWheelHighSpeed);
 }
 
 void Shooter::FlyWheelLowSpeed() {
+	flyWheelMotor->Set(kFlyWheelLowSpeed);
 }
 
 void Shooter::KickerExtend() {
+	ballKicker->Set(kKickerExtendSpeed);
 }
 
 void Shooter::KickerRetract() {
+	ballKicker->Set(kKickerRetractSpeed);
 }
 
 bool Shooter::KickerBallDetect() {
+	return ballSensor->Get();
 }
 
 void Shooter::ShooterElevate() {
+	elevationMotor->Set(kShooterElevateSpeed);
 }
 
 void Shooter::ShooterLower() {
+	elevationMotor->Set(kShooterLowerSpeed);
 }
 
 bool Shooter::ShooterIsHome() {
+	return elevationHome->Get();
 }
 
 bool Shooter::ShooterAtMax() {
+	return elevationMax->Get();
 }
 
 float Shooter::GetShooterElevation() {
+	return elevationEncoder->GetDistance();
 }
 
 void Shooter::HookRaise() {
+	hookMotor->Set(kHookRaiseSpeed);
 }
 
 void Shooter::HookLower() {
+	hookMotor->Set(kHookLowerSpeed);
 }
 
 bool Shooter::HookIsHome() {
+	return hookHome->Get();
 }
 
 void Shooter::ShooterStop() {
+	elevationMotor->Set(kShooterStop);
 }
 
 void Shooter::HookStop() {
+	hookMotor->Set(kHookStop);
 }
 
 void Shooter::KickerStop() {
+	ballKicker->Set(kKickerStop);
 }
 
 bool Shooter::HookAtMax() {
+	return hookMax->Get();
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

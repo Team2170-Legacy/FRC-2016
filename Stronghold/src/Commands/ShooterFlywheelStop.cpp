@@ -30,12 +30,12 @@ void ShooterFlywheelStop::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShooterFlywheelStop::Execute() {
-
+	Robot::shooter->FlyWheelStop();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterFlywheelStop::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
