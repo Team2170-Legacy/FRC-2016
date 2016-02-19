@@ -27,7 +27,7 @@ class DriveTrain: public Subsystem {
 private:
 	const unsigned short int kCountsPerRev = 360*4;	// 360 count encoder, x4 sampling
 	float mAutoVelocity = 0.5;
-	float mYawGain = -0.2;
+	float mYawGain = -0.15;
 	bool bDriveStraight = false;
 
 
@@ -75,6 +75,7 @@ public:
 	float ReadChassisYaw();
 	float ReadChassisDistance();
 	void StopMotors();
+	void SetBrakeMode( CANSpeedController::NeutralMode);
 
 	double ReadPositionError();
 

@@ -92,9 +92,10 @@ void DriveTrain::StopMotors(void) {
 
 void DriveTrain::IntializeMotorDrives() {
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
+	SetBrakeMode(CANTalon::NeutralMode::kNeutralMode_Brake);
 	cANTalonLeft->EnableControl();
 	cANTalonLeft->Set(0.0);
-	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 
@@ -293,4 +294,9 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 TimerEventHandler  DriveTrain::ServiceMotionProfile() {
 	cANTalonLeft->ProcessMotionProfileBuffer();
 	cANTalonRight->ProcessMotionProfileBuffer();
+}
+
+void DriveTrain::SetBrakeMode( CANSpeedController::NeutralMode Mode) {
+	cANTalonLeft->Set(Mode);
+	cANTalonRight->Set(Mode);
 }
