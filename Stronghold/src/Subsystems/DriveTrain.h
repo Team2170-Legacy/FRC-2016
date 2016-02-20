@@ -26,6 +26,7 @@
 class DriveTrain: public Subsystem {
 private:
 	const unsigned short int kCountsPerRev = 360*4;	// 360 count encoder, x4 sampling
+	const double kDefaultVoltageRamp = 24.0;		// 100% in 0.5 seconds
 	float mAutoVelocity = 0.5;
 	float mYawGain = -0.15;
 	bool bDriveStraight = false;
@@ -57,7 +58,7 @@ public:
 	void FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel);
 	void FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 			std::shared_ptr<const ProfileData> RightWheel);
-	TimerEventHandler ServiceMotionProfile();
+	void ServiceMotionProfile();
 
 
 
@@ -76,6 +77,7 @@ public:
 	float ReadChassisDistance();
 	void StopMotors();
 	void SetBrakeMode( CANSpeedController::NeutralMode);
+	void SetMotionProfileState(CANTalon::SetValueMotionProfile mode);
 
 	double ReadPositionError();
 
@@ -89,7 +91,7 @@ public:
 		mAutoVelocity = autoVelocity;
 	}
 
-	void IntializeMotorDrives();
+	void SetVoltagePercentMode();
 
 };
 

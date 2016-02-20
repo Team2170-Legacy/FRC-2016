@@ -90,12 +90,14 @@ void DriveTrain::StopMotors(void) {
 
 }
 
-void DriveTrain::IntializeMotorDrives() {
+void DriveTrain::SetVoltagePercentMode() {
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	SetBrakeMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+	cANTalonLeft->SetVoltageRampRate(kDefaultVoltageRamp);
 	cANTalonLeft->EnableControl();
 	cANTalonLeft->Set(0.0);
+	cANTalonRight->SetVoltageRampRate(kDefaultVoltageRamp);
 	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 
@@ -151,14 +153,18 @@ void DriveTrain::SetClosedLoopMode() {
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPosition);
 	cANTalonLeft->SetFeedbackDevice(CANTalon::QuadEncoder);
 	cANTalonLeft->ConfigEncoderCodesPerRev(kCountsPerRev);
+
+	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPosition);
+	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
+	cANTalonRight->ConfigEncoderCodesPerRev(kCountsPerRev);
+
+	cANTalonLeft->SetVoltageRampRate(0.0);
 	cANTalonLeft->SetPosition(0.0);
 	cANTalonLeft->SetSensorDirection(true);
 	cANTalonLeft->EnableControl();
 	cANTalonLeft->Set(0.0);
 
-	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPosition);
-	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
-	cANTalonRight->ConfigEncoderCodesPerRev(kCountsPerRev);
+	cANTalonRight->SetVoltageRampRate(0.0);
 	cANTalonRight->SetPosition(0.0);
 	cANTalonRight->SetSensorDirection(true);
 	cANTalonRight->EnableControl();
@@ -168,10 +174,13 @@ void DriveTrain::SetClosedLoopMode() {
 void DriveTrain::SetMotionProfileMode() {
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
 	cANTalonLeft->EnableControl();
-	cANTalonLeft->Set(0.0);
+	cANTalonLeft->SetVoltageRampRate(0.0);
+	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
 	cANTalonRight->EnableControl();
-	cANTalonRight->Set(0.0);
+	cANTalonRight->SetVoltageRampRate(0.0);
+	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 }
 
 float DriveTrain::ReadChassisDistance() {
@@ -242,6 +251,8 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel)
 
 	cANTalonLeft->ClearMotionProfileTrajectories();
 	cANTalonRight->ClearMotionProfileTrajectories();
+	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 
 	for (i = 0; i < LeftWheel->size(); i++) {
 		// check if this is the last point
@@ -271,6 +282,8 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 
 	cANTalonLeft->ClearMotionProfileTrajectories();
 	cANTalonRight->ClearMotionProfileTrajectories();
+	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 
 	for (i = 0; i < LeftWheel->size(); i++) {
 		// check if this is the last point
@@ -291,13 +304,24 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 	}
 }
 
-TimerEventHandler  DriveTrain::ServiceMotionProfile() {
+void  DriveTrain::ServiceMotionProfile() {
 //	cANTalonLeft->ProcessMotionProfileBuffer();
 //	cANTalonRight->ProcessMotionProfileBuffer();
 	printf("I'm in the notifier\n");
 }
 
 void DriveTrain::SetBrakeMode( CANSpeedController::NeutralMode Mode) {
-	cANTalonLeft->Set(Mode);
-	cANTalonRight->Set(Mode);
+	cANTalonLeft->ConfigNeutralMode(Mode);
+	cANTalonRight->ConfigNeutralMode(Mode);
+}
+
+void DriveTrain::SetMotionProfileState(CANTalon::SetValueMotionProfile mode) {
+	if (cANTalonLeft->GetControlMode()
+			== CANSpeedController::ControlMode::kMotionProfile) {
+		cANTalonLeft->Set(mode);
+	}
+	if (cANTalonLeft->GetControlMode()
+			== CANSpeedController::ControlMode::kMotionProfile) {
+		cANTalonRight->Set(mode);
+	}
 }
