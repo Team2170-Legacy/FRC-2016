@@ -31,6 +31,8 @@ void AutonomousMotionProfile::Initialize() {
 	else {
 		Robot::driveTrain->FillProfileBuffer(mLeftWheel);
 	}
+	talonService.StartPeriodic(0.05);
+	SetTimeout(2.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -40,12 +42,12 @@ void AutonomousMotionProfile::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousMotionProfile::IsFinished() {
-    return false;
+    return IsTimedOut();
 }
 
 // Called once after isFinished returns true
 void AutonomousMotionProfile::End() {
-
+	talonService.Stop();
 }
 
 

@@ -292,8 +292,9 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 }
 
 TimerEventHandler  DriveTrain::ServiceMotionProfile() {
-	cANTalonLeft->ProcessMotionProfileBuffer();
-	cANTalonRight->ProcessMotionProfileBuffer();
+//	cANTalonLeft->ProcessMotionProfileBuffer();
+//	cANTalonRight->ProcessMotionProfileBuffer();
+	printf("I'm in the notifier\n");
 }
 
 void DriveTrain::SetBrakeMode( CANSpeedController::NeutralMode Mode) {
