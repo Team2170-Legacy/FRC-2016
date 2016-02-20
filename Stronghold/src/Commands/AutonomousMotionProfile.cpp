@@ -49,7 +49,6 @@ bool AutonomousMotionProfile::IsFinished() {
 // Called once after isFinished returns true
 void AutonomousMotionProfile::End() {
 	talonService.Stop();
-	Robot::driveTrain->SetMotionProfileState(CANTalon::SetValueMotionProfileDisable);
 }
 
 

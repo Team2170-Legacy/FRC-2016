@@ -30,12 +30,12 @@ void ShooterFlywheelReverse::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShooterFlywheelReverse::Execute() {
-
+	Robot::shooter->FlyWheelReverse();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterFlywheelReverse::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
