@@ -59,18 +59,28 @@ void VisionEngine::ProcessContours() {
 				bestContourX = centerX[i];
 				bestContourY = centerY[i];
 
-			}
+				bestWidth = ConvertPixels(width[i]);
+				bestHeight = ConvertPixels(height[i]);
 
+				bestPerimeter = 2 * bestWidth + 2 * bestHeight;
+
+			}
+//NOT IN CARTESIAN
 			std::cout << "Best Contour : " << bestContour + 1 << std::endl;
 			std::cout << "Best Ratio : " << bestContourRatio << std::endl;
-			std::cout << "Center : (" << bestContourX << ","
-					<< 479 - bestContourY << ")" << std::endl;
-
+			std::cout << "Best Dimensions : " << bestWidth << " x " << bestHeight << std::endl;
+			std::cout << "Best Perimeter : " << bestPerimeter << std::endl;
+			std::cout << "Center : (" << bestContourX << ", "
+					<< bestContourY << ")" << std::endl;
 			double distX = 319 - bestContourX + CAMERA_OFFSET_X;
 			double distY = 239 - bestContourY + CAMERA_OFFSET_Y;
 
-			std::cout << "Move : (" << distX << "," << distY << ")" << std::endl
+			distX = ConvertPixels(distX);
+			distY = ConvertPixels(distY);
+
+			std::cout << "Move : (" << distX << ", " << distY << ")" << std::endl
 					<< std::endl;
+
 
 		}
 	} else {

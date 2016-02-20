@@ -18,8 +18,10 @@ private:
 
 	unsigned bestContour = 0, contourAge = 0;
 	const unsigned kMaxContourAge = 10;
+	double bestWidth = 0.0, bestHeight = 0.0, bestPerimeter = 0.0;
 	double bestContourRatio = 0.0, bestContourX = 0.0, bestContourY = 0.0;
 	const double CAMERA_OFFSET_X = 0.0, CAMERA_OFFSET_Y = 0.0;
+	const double kPixelConversion = 0.17; //conversion factor from pixels to inches
 
 	const double kIdealAspectRatio = 1.6;
 	double ContourScore(double aspect);
@@ -30,6 +32,8 @@ public:
 	void ProcessContours();
 	void StartGRIP();
 	void StopGRIP();
+
+	double ConvertPixels(double pixels) {return pixels * kPixelConversion / 12.0;} //converts from pixels to feet
 };
 
 #endif /* SRC_VISIONENGINE_H_ */
