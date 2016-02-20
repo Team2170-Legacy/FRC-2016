@@ -25,6 +25,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(): Command(),
 
 // Called just before this Command runs the first time
 void AutonomousMotionProfile::Initialize() {
+	Robot::driveTrain->SetMotionProfileMode();
 	if (mRightWheel) {
 		Robot::driveTrain->FillProfileBuffer(mLeftWheel, mRightWheel);
 	}
@@ -33,7 +34,7 @@ void AutonomousMotionProfile::Initialize() {
 	}
 	Robot::driveTrain->SetMotionProfileState(CANTalon::SetValueMotionProfileEnable);
 	talonService.StartPeriodic(0.005);
-	SetTimeout(2.0);
+	SetTimeout(200.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
