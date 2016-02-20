@@ -110,12 +110,6 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
  	float ProcessedRight = Right;
  	double fExponent = 1.0;
 
-
- 	// make sure talons are in voltage drive mode
-	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-
-
  	ProcessedLeft = DEADBAND(AxisPower(ProcessedLeft, fExponent), 0.15);
 
 
@@ -279,12 +273,16 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel)
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
 		pt.timeDurMs = LeftWheel->at(i).at(2);
-		cANTalonLeft->PushMotionProfileTrajectory(pt);
+		if (!cANTalonLeft->PushMotionProfileTrajectory(pt)) {
+			printf("left can push failed\n");
+		}
 
 		// Negative position and velocity for right side
 		pt.position = -pt.position;
 		pt.velocity = -pt.velocity;
-		cANTalonRight->PushMotionProfileTrajectory(pt);
+		if (!cANTalonRight->PushMotionProfileTrajectory(pt)) {
+			printf("right can push failed\n");
+		}
 	}
 }
 

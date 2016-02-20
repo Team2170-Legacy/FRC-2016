@@ -25,7 +25,6 @@ AutonomousMotionProfile::AutonomousMotionProfile(): Command(),
 
 // Called just before this Command runs the first time
 void AutonomousMotionProfile::Initialize() {
-	Robot::driveTrain->SetMotionProfileMode();
 	if (mRightWheel) {
 		Robot::driveTrain->FillProfileBuffer(mLeftWheel, mRightWheel);
 	}
