@@ -32,9 +32,13 @@ private:
 	bool bDriveStraight = false;
 
 	const double kPorportionalGain = 0.75;
-	const double kFeedForwardGain = 0.43;
+	const double kDerivativeGain = 2.5;
+	const double kFeedForwardGain = 0.75;
 
 	double AxisPower(double axis, double exponent);
+
+	CANTalon::MotionProfileStatus LeftStatus;
+	CANTalon::MotionProfileStatus RightStatus;
 
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
@@ -61,6 +65,7 @@ public:
 	void FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 			std::shared_ptr<const ProfileData> RightWheel);
 	void ServiceMotionProfile();
+	bool MotionProfileComplete();
 
 	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
 	void TankDriveWithTriggers(float Left, float Right, float Trigger);

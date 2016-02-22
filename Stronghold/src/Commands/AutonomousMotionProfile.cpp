@@ -43,12 +43,13 @@ void AutonomousMotionProfile::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousMotionProfile::IsFinished() {
-    return IsTimedOut();
+    return Robot::driveTrain->MotionProfileComplete();
 }
 
 // Called once after isFinished returns true
 void AutonomousMotionProfile::End() {
 	talonService.Stop();
+	Robot::driveTrain->SetMotionProfileState(CANTalon::SetValueMotionProfileDisable);
 }
 
 
