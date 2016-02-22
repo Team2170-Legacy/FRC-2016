@@ -54,6 +54,8 @@ private:
 	const float kKickerRetractSpeed = -0.5;
 	const float kKickerStop = 0.0;
 
+	bool mShooterHomed = false;
+
 public:
 	Shooter();
 	void InitDefaultCommand();

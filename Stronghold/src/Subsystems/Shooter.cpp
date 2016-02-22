@@ -85,7 +85,13 @@ void Shooter::ShooterLower() {
 }
 
 bool Shooter::ShooterIsHome() {
-	return elevationHome->Get();
+	bool Home = elevationHome->Get();
+
+	if (Home) {
+		elevationEncoder->Reset();
+		mShooterHomed = true;
+	}
+	return Home;
 }
 
 bool Shooter::ShooterAtMax() {
