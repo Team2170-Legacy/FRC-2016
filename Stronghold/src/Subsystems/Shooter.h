@@ -14,6 +14,9 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
+#define DEADBAND_SHOOTER(val, limit)	((fabs(val) < limit) ? 0.0 : val)
+
+
 /**
  *
  *
@@ -89,6 +92,9 @@ public:
 	void HookStop();
 	bool HookIsHome();
 	bool HookAtMax();
+
+	// Teleop public methods
+	void ShooterAim(float ElevationCmd);
 };
 
 #endif

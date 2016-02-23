@@ -77,11 +77,21 @@ bool Shooter::KickerBallDetect() {
 }
 
 void Shooter::ShooterElevate() {
-	elevationMotor->Set(kShooterElevateSpeed);
+	if (!ShooterAtMax()) {
+		elevationMotor->Set(kShooterElevateSpeed);
+	}
+	else {
+		elevationMotor->Set(kShooterStop);
+	}
 }
 
 void Shooter::ShooterLower() {
-	elevationMotor->Set(kShooterLowerSpeed);
+	if (!ShooterIsHome()) {
+		elevationMotor->Set(kShooterLowerSpeed);
+	}
+	else {
+		elevationMotor->Set(kShooterStop);
+	}
 }
 
 bool Shooter::ShooterIsHome() {
@@ -128,6 +138,20 @@ void Shooter::KickerStop() {
 
 bool Shooter::HookAtMax() {
 	return hookMax->Get();
+}
+
+void Shooter::ShooterAim(float ElevationCmd) {
+	ElevationCmd = DEADBAND_SHOOTER(ElevationCmd, 0.15);
+
+	if ((ElevationCmd > 0.0) && ShooterAtMax()) {
+		ElevationCmd = 0.0;
+	}
+
+	if ((ElevationCmd < 0.0) && ShooterIsHome()) {
+		ElevationCmd = 0.0;
+	}
+
+	elevationMotor->Set(ElevationCmd);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
