@@ -31,6 +31,8 @@ private:
 	float mYawGain = -0.15;
 	bool bDriveStraight = false;
 
+	bool mMotionProcessingActive = false;
+
 	const double kPorportionalGain = 0.75;
 	const double kDerivativeGain = 2.5;
 	const double kFeedForwardGain = 0.75;

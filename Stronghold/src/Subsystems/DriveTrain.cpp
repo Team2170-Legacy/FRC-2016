@@ -95,10 +95,10 @@ void DriveTrain::SetVoltagePercentMode() {
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	SetBrakeMode(CANTalon::NeutralMode::kNeutralMode_Brake);
 	cANTalonLeft->SetVoltageRampRate(kDefaultVoltageRamp);
-	cANTalonLeft->EnableControl();
+//	cANTalonLeft->EnableControl();
 	cANTalonLeft->Set(0.0);
 	cANTalonRight->SetVoltageRampRate(kDefaultVoltageRamp);
-	cANTalonRight->EnableControl();
+//	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 
 }
@@ -178,7 +178,7 @@ void DriveTrain::SetMotionProfileMode() {
 	cANTalonLeft->SetSensorDirection(true);
 	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonLeft->SetVoltageRampRate(0.0);
-	cANTalonLeft->EnableControl();
+//	cANTalonLeft->EnableControl();
 
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
 	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
@@ -188,7 +188,7 @@ void DriveTrain::SetMotionProfileMode() {
 	cANTalonRight->SetSensorDirection(true);
 	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonRight->SetVoltageRampRate(0.0);
-	cANTalonRight->EnableControl();
+//	cANTalonRight->EnableControl();
 
 }
 
@@ -261,10 +261,12 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel)
 	pt.profileSlotSelect = 0;
 	pt.velocityOnly = false;
 
-	cANTalonLeft->ClearMotionProfileTrajectories();
-	cANTalonRight->ClearMotionProfileTrajectories();
 	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonLeft->ClearMotionProfileTrajectories();
+	cANTalonLeft->ClearMotionProfileHasUnderrun();
+	cANTalonRight->ClearMotionProfileTrajectories();
+	cANTalonRight->ClearMotionProfileHasUnderrun();
 
 	for (i = 0; i < LeftWheel->size(); i++) {
 		// check if this is the last point
@@ -285,13 +287,9 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel)
 		if (!cANTalonRight->PushMotionProfileTrajectory(pt)) {
 			printf("right can push failed\n");
 		}
+		pt.zeroPos = false;
 	}
 
-	// send a few points down to the talons
-	cANTalonLeft->ProcessMotionProfileBuffer();
-	cANTalonRight->ProcessMotionProfileBuffer();
-	cANTalonLeft->ProcessMotionProfileBuffer();
-	cANTalonRight->ProcessMotionProfileBuffer();
 }
 
 void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
@@ -302,10 +300,12 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 	pt.zeroPos = true;
 	pt.isLastPoint = false;
 
-	cANTalonLeft->ClearMotionProfileTrajectories();
-	cANTalonRight->ClearMotionProfileTrajectories();
 	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonLeft->ClearMotionProfileTrajectories();
+	cANTalonLeft->ClearMotionProfileHasUnderrun();
+	cANTalonRight->ClearMotionProfileTrajectories();
+	cANTalonRight->ClearMotionProfileHasUnderrun();
 
 	for (i = 0; i < LeftWheel->size(); i++) {
 		// check if this is the last point
@@ -323,13 +323,8 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 		pt.velocity = RightWheel->at(i).at(1);
 		pt.timeDurMs = RightWheel->at(i).at(2);
 		cANTalonRight->PushMotionProfileTrajectory(pt);
+		pt.zeroPos = false;
 	}
-
-	// send a few points down to the talons
-	cANTalonLeft->ProcessMotionProfileBuffer();
-	cANTalonRight->ProcessMotionProfileBuffer();
-	cANTalonLeft->ProcessMotionProfileBuffer();
-	cANTalonRight->ProcessMotionProfileBuffer();
 }
 
 void  DriveTrain::ServiceMotionProfile() {
@@ -376,11 +371,20 @@ bool DriveTrain::MotionProfileComplete() {
 
 	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
 	printf("Bottom buffer count:  %d\n", LeftStatus.btmBufferCnt);
-	printf("Underrun status:  %d\n", LeftStatus.hasUnderrun);
+	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
+
+	// Start motion profile processing after 5 points are in talon buffer
+	if ((!mMotionProcessingActive) && (LeftStatus.btmBufferCnt > 5)) {
+		SetMotionProfileState(CANTalon::SetValueMotionProfile::SetValueMotionProfileEnable);
+		mMotionProcessingActive = true;
+		printf("Enabling motion processing\n");
+	}
 
 	if ((LeftStatus.activePointValid && LeftStatus.activePoint.isLastPoint) &&
 			(RightStatus.activePointValid && RightStatus.activePoint.isLastPoint)) {
 		Complete = true;
+		mMotionProcessingActive = false;
+		printf("Motion Profile Complete\n");
 	}
 
 	return Complete;
