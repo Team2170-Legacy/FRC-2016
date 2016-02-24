@@ -45,5 +45,5 @@ void ShooterLowerHook::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShooterLowerHook::Interrupted() {
-	Robot::shooter->HookStop();
+	End();
 }

@@ -30,7 +30,7 @@ void ShooterJoystickControl::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShooterJoystickControl::Execute() {
-
+	Robot::shooter->ShooterAim(mShooterControl->GetY(Joystick::JoystickHand::kLeftHand));
 }
 
 // Make this return true when this Command no longer needs to run execute()
