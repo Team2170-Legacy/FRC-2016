@@ -30,12 +30,12 @@ void ShooterFlywheelLow::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShooterFlywheelLow::Execute() {
-
+	Robot::shooter->FlyWheelLowSpeed();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterFlywheelLow::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true

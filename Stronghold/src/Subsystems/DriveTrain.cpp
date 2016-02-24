@@ -90,12 +90,15 @@ void DriveTrain::StopMotors(void) {
 
 }
 
-void DriveTrain::IntializeMotorDrives() {
+void DriveTrain::SetVoltagePercentMode() {
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-	cANTalonLeft->EnableControl();
-	cANTalonLeft->Set(0.0);
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-	cANTalonRight->EnableControl();
+	SetBrakeMode(CANTalon::NeutralMode::kNeutralMode_Brake);
+	cANTalonLeft->SetVoltageRampRate(kDefaultVoltageRamp);
+//	cANTalonLeft->EnableControl();
+	cANTalonLeft->Set(0.0);
+	cANTalonRight->SetVoltageRampRate(kDefaultVoltageRamp);
+//	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 
 }
@@ -106,12 +109,6 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
  	float ProcessedLeft = Left;
  	float ProcessedRight = Right;
  	double fExponent = 1.0;
-
-
- 	// make sure talons are in voltage drive mode
-	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
-
 
  	ProcessedLeft = DEADBAND(AxisPower(ProcessedLeft, fExponent), 0.15);
 
@@ -147,30 +144,52 @@ double DriveTrain::AxisPower(double axis, double exponent) {
 
 void DriveTrain::SetClosedLoopMode() {
 
+	SetMotorGains();
+
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kPosition);
 	cANTalonLeft->SetFeedbackDevice(CANTalon::QuadEncoder);
 	cANTalonLeft->ConfigEncoderCodesPerRev(kCountsPerRev);
-	cANTalonLeft->SetPosition(0.0);
-	cANTalonLeft->SetSensorDirection(false);
-	cANTalonLeft->EnableControl();
-	cANTalonLeft->Set(0.0);
 
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPosition);
 	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
 	cANTalonRight->ConfigEncoderCodesPerRev(kCountsPerRev);
+
+	cANTalonLeft->SetVoltageRampRate(0.0);
+	cANTalonLeft->SetPosition(0.0);
+	cANTalonLeft->SetSensorDirection(true);
+	cANTalonLeft->EnableControl();
+	cANTalonLeft->Set(0.0);
+
+	cANTalonRight->SetVoltageRampRate(0.0);
 	cANTalonRight->SetPosition(0.0);
-	cANTalonRight->SetSensorDirection(false);
+	cANTalonRight->SetSensorDirection(true);
 	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 }
 
 void DriveTrain::SetMotionProfileMode() {
+	SetMotorGains();
+
 	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
-	cANTalonLeft->EnableControl();
-	cANTalonLeft->Set(0.0);
+	cANTalonLeft->SetFeedbackDevice(CANTalon::QuadEncoder);
+	cANTalonLeft->ConfigEncoderCodesPerRev(kCountsPerRev);
+	cANTalonLeft->ChangeMotionControlFramePeriod(5);
+	cANTalonLeft->SetPosition(0.0);
+	cANTalonLeft->SetSensorDirection(true);
+	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonLeft->SetVoltageRampRate(0.0);
+//	cANTalonLeft->EnableControl();
+
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
-	cANTalonRight->EnableControl();
-	cANTalonRight->Set(0.0);
+	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
+	cANTalonRight->ConfigEncoderCodesPerRev(kCountsPerRev);
+	cANTalonRight->ChangeMotionControlFramePeriod(5);
+	cANTalonRight->SetPosition(0.0);
+	cANTalonRight->SetSensorDirection(true);
+	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonRight->SetVoltageRampRate(0.0);
+//	cANTalonRight->EnableControl();
+
 }
 
 float DriveTrain::ReadChassisDistance() {
@@ -200,23 +219,24 @@ double DriveTrain::ReadPositionError() {
 }
 
 void DriveTrain::SetVelocityMode() {
-cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kSpeed);
-cANTalonLeft->EnableControl();
-cANTalonLeft->Set(0.0);
-cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kSpeed);
-cANTalonRight->EnableControl();
-cANTalonRight->Set(0.0);
+	SetMotorGains();
+	cANTalonLeft->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+	cANTalonLeft->EnableControl();
+	cANTalonLeft->Set(0.0);
+	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kSpeed);
+	cANTalonRight->EnableControl();
+	cANTalonRight->Set(0.0);
 }
 
-void DriveTrain::SetChassisVelocity(float velocity) {
+void DriveTrain::SetChassisVelocity(float vRPM) {
 	if (cANTalonLeft->GetControlMode()
 			== CANSpeedController::ControlMode::kSpeed) {
-		cANTalonLeft->Set(velocity);
+		cANTalonLeft->Set(vRPM);
 	}
 
 	if (cANTalonRight->GetControlMode()
 			== CANSpeedController::ControlMode::kSpeed) {
-		cANTalonRight->Set(velocity);
+		cANTalonRight->Set(-vRPM);
 	}
 }
 
@@ -228,7 +248,7 @@ void DriveTrain::SetChassisPosition(float position) {
 
 	if (cANTalonRight->GetControlMode()
 			== CANSpeedController::ControlMode::kPosition) {
-		cANTalonRight->Set(position);
+		cANTalonRight->Set(-position);
 	}
 }
 
@@ -238,9 +258,15 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel)
 
 	pt.zeroPos = true;
 	pt.isLastPoint = false;
+	pt.profileSlotSelect = 0;
+	pt.velocityOnly = false;
 
+	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonLeft->ClearMotionProfileTrajectories();
+	cANTalonLeft->ClearMotionProfileHasUnderrun();
 	cANTalonRight->ClearMotionProfileTrajectories();
+	cANTalonRight->ClearMotionProfileHasUnderrun();
 
 	for (i = 0; i < LeftWheel->size(); i++) {
 		// check if this is the last point
@@ -251,13 +277,19 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel)
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
 		pt.timeDurMs = LeftWheel->at(i).at(2);
-		cANTalonLeft->PushMotionProfileTrajectory(pt);
+		if (!cANTalonLeft->PushMotionProfileTrajectory(pt)) {
+			printf("left can push failed\n");
+		}
 
 		// Negative position and velocity for right side
 		pt.position = -pt.position;
 		pt.velocity = -pt.velocity;
-		cANTalonRight->PushMotionProfileTrajectory(pt);
+		if (!cANTalonRight->PushMotionProfileTrajectory(pt)) {
+			printf("right can push failed\n");
+		}
+		pt.zeroPos = false;
 	}
+
 }
 
 void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
@@ -268,8 +300,12 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 	pt.zeroPos = true;
 	pt.isLastPoint = false;
 
+	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
+	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonLeft->ClearMotionProfileTrajectories();
+	cANTalonLeft->ClearMotionProfileHasUnderrun();
 	cANTalonRight->ClearMotionProfileTrajectories();
+	cANTalonRight->ClearMotionProfileHasUnderrun();
 
 	for (i = 0; i < LeftWheel->size(); i++) {
 		// check if this is the last point
@@ -287,10 +323,69 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 		pt.velocity = RightWheel->at(i).at(1);
 		pt.timeDurMs = RightWheel->at(i).at(2);
 		cANTalonRight->PushMotionProfileTrajectory(pt);
+		pt.zeroPos = false;
 	}
 }
 
-TimerEventHandler  DriveTrain::ServiceMotionProfile() {
+void  DriveTrain::ServiceMotionProfile() {
 	cANTalonLeft->ProcessMotionProfileBuffer();
 	cANTalonRight->ProcessMotionProfileBuffer();
+//	printf("I'm in the notifier\n");
+}
+
+void DriveTrain::SetBrakeMode( CANSpeedController::NeutralMode Mode) {
+	cANTalonLeft->ConfigNeutralMode(Mode);
+	cANTalonRight->ConfigNeutralMode(Mode);
+}
+
+void DriveTrain::SetMotionProfileState(CANTalon::SetValueMotionProfile mode) {
+	if (cANTalonLeft->GetControlMode()
+			== CANSpeedController::ControlMode::kMotionProfile) {
+		cANTalonLeft->Set(mode);
+	}
+	if (cANTalonLeft->GetControlMode()
+			== CANSpeedController::ControlMode::kMotionProfile) {
+		cANTalonRight->Set(mode);
+	}
+}
+
+void DriveTrain::SetMotorGains() {
+
+	cANTalonLeft->SelectProfileSlot(0);
+	cANTalonLeft->SetP(kPorportionalGain);
+	cANTalonLeft->SetD(kDerivativeGain);
+	cANTalonLeft->SetF(kFeedForwardGain);
+
+	cANTalonRight->SelectProfileSlot(0);
+	cANTalonRight->SetP(kPorportionalGain);
+	cANTalonRight->SetD(kDerivativeGain);
+	cANTalonRight->SetF(kFeedForwardGain);
+
+}
+
+bool DriveTrain::MotionProfileComplete() {
+	bool Complete = false;
+
+	cANTalonLeft->GetMotionProfileStatus(LeftStatus);
+	cANTalonRight->GetMotionProfileStatus(RightStatus);
+
+	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
+	printf("Bottom buffer count:  %d\n", LeftStatus.btmBufferCnt);
+	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
+
+	// Start motion profile processing after 5 points are in talon buffer
+	if ((!mMotionProcessingActive) && (LeftStatus.btmBufferCnt > 5)) {
+		SetMotionProfileState(CANTalon::SetValueMotionProfile::SetValueMotionProfileEnable);
+		mMotionProcessingActive = true;
+		printf("Enabling motion processing\n");
+	}
+
+	if ((LeftStatus.activePointValid && LeftStatus.activePoint.isLastPoint) &&
+			(RightStatus.activePointValid && RightStatus.activePoint.isLastPoint)) {
+		Complete = true;
+		mMotionProcessingActive = false;
+		printf("Motion Profile Complete\n");
+	}
+
+	return Complete;
 }

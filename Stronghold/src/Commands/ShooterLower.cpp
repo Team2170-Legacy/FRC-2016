@@ -31,21 +31,34 @@ void ShooterLower::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShooterLower::Execute() {
-
+	Robot::shooter->ShooterLower();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterLower::IsFinished() {
-    return false;
+	bool bFinished = false;
+
+	// Limit switch active forces stop
+	bFinished = Robot::shooter->ShooterAtMax();
+
+	if (m_AbsoluteCommand)
+	{
+		bFinished |= (Robot::shooter->GetShooterElevation() <= m_displacement);
+	}
+    return bFinished;
 }
 
 // Called once after isFinished returns true
 void ShooterLower::End() {
-
+	Robot::shooter->ShooterStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ShooterLower::Interrupted() {
+	Robot::shooter->ShooterStop();
+}
 
+ShooterLower::ShooterLower(): Command() {
+	m_displacement = -1.0;
 }

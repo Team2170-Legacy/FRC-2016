@@ -38,7 +38,6 @@ void TankDriveTeleop::Execute() {
 	double right = mDriverControl->GetRightY();
 
 	Robot::driveTrain->TankDriveWithTriggers(left, right, mDriverControl->GetTriggers());
-	std::cout << Robot::driveTrain->ReadChassisDistance() << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
