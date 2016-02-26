@@ -29,15 +29,17 @@ void VisionEngine::ProcessContours() {
 			llvm::ArrayRef<double>());
 	std::vector<double> height = table->GetNumberArray("height",
 			llvm::ArrayRef<double>());
-
+	std::vector<double> area = table->GetNumberArray("area", llvm::ArrayRef<double>());
 	size_t contourCount = width.size();
 	if (contourAge < kMaxContourAge) {
 		contourAge++;
+
 	} else {
 		contourAge = 0;
 		bestContour = 0;
 		bestContourX = 0.0, bestContourY = 0.0;
 		bestContourRatio = 0.0;
+		bestArea = 0.0;
 	}
 	if (contourCount > 0) {
 		for (size_t i = 0; i < contourCount; i++) {
@@ -62,7 +64,10 @@ void VisionEngine::ProcessContours() {
 				bestWidth = ConvertPixels(width[i]);
 				bestHeight = ConvertPixels(height[i]);
 
+				bestArea = ConvertPixels(area[i]);
+
 				bestPerimeter = 2 * bestWidth + 2 * bestHeight;
+
 
 			}
 //NOT IN CARTESIAN
@@ -80,7 +85,7 @@ void VisionEngine::ProcessContours() {
 
 			std::cout << "Move : (" << distX << ", " << distY << ")" << std::endl
 					<< std::endl;
-
+			std::cout << "Best Area : " << bestArea << std::endl;
 
 		}
 	} else {
