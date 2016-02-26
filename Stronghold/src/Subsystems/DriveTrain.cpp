@@ -299,6 +299,8 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 
 	pt.zeroPos = true;
 	pt.isLastPoint = false;
+	pt.profileSlotSelect = 0;
+	pt.velocityOnly = false;
 
 	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
