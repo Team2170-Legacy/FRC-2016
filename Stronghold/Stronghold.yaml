@@ -479,35 +479,6 @@ Children:
           value: whenPressed
       Base: Joystick Button
       Name: Home Shooter
-    - Children: []
-      Properties:
-        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: Shooter Joystick}
-        Parameters: !!robotbuilder.data.properties.ParametersProperty
-          default: []
-          name: Parameters
-          validators: null
-          value: []
-        Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id009
-          default: '1'
-          name: Button
-          validators: null
-          value: '9'
-        Command: !!robotbuilder.data.properties.TypeSelectionProperty
-          default: None
-          name: Command
-          type: Command
-          validators: *id010
-          value: Shooter Prematch Position
-        When to Run: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id011
-          default: whileHeld
-          name: When to Run
-          validators: null
-          value: whenPressed
-      Base: Joystick Button
-      Name: Shooter Prematch Park
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id012
@@ -744,7 +715,7 @@ Children:
         validators: null
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Shooter Flywheel Reverse
   - Children: []
@@ -764,7 +735,7 @@ Children:
         validators: null
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Shooter Raise
   - Children: []
@@ -784,7 +755,7 @@ Children:
         validators: null
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Shooter Lower
   - Children: []
@@ -841,7 +812,7 @@ Children:
         validators: *id014
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command Group
     Name: Autoonomous Fire Boulder High
   - Children: []
@@ -883,7 +854,7 @@ Children:
         validators: *id014
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command Group
     Name: Autonomous Climb Tower
   - Children: []
@@ -904,7 +875,7 @@ Children:
         validators: *id014
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command Group
     Name: Autonomous Collect Ball
   - Children: []
@@ -925,7 +896,7 @@ Children:
         validators: *id014
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
+        name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
     Name: Shooter Prematch Position
   - Children: []
