@@ -73,7 +73,7 @@ void Shooter::KickerRetract() {
 }
 
 bool Shooter::KickerDetect() {
-	return ballKickSensor->Get();
+	return !ballKickSensor->Get();		// Normally open switch need to invert
 }
 
 void Shooter::ShooterElevate() {
