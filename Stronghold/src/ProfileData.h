@@ -27,7 +27,10 @@ extern const ProfileData Rotate90CounterClockwise;
 extern const ProfileData Rotate180CounterClockwise;
 // 50 inches forward
 extern const ProfileData AutonomousMoveToDefense;
-
+// 230 inches forward, past the low bar
+extern const ProfileData AutonomousDrivePastLowBar;
+// 60 degrees clockwise
+extern const ProfileData Rotate60Clockwise;
 
 
 #endif
