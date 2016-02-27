@@ -93,6 +93,8 @@ public:
 	bool HookIsHome();
 	bool HookAtMax();
 
+	void EncoderReset();
+
 	// Teleop public methods
 	void ShooterAim(float ElevationCmd);
 };

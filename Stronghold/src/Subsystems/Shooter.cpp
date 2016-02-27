@@ -73,7 +73,7 @@ void Shooter::KickerRetract() {
 }
 
 bool Shooter::KickerDetect() {
-	return ballKickSensor->Get();
+	return !ballKickSensor->Get();		// Normally open switch need to invert
 }
 
 void Shooter::ShooterElevate() {
@@ -141,6 +141,7 @@ bool Shooter::HookAtMax() {
 }
 
 void Shooter::ShooterAim(float ElevationCmd) {
+	ElevationCmd = -ElevationCmd;
 	ElevationCmd = DEADBAND_SHOOTER(ElevationCmd, 0.15);
 
 	if ((ElevationCmd > 0.0) && ShooterAtMax()) {
@@ -152,6 +153,10 @@ void Shooter::ShooterAim(float ElevationCmd) {
 	}
 
 	elevationMotor->Set(ElevationCmd);
+}
+
+void Shooter::EncoderReset() {
+	elevationEncoder->Reset();
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

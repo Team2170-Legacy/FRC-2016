@@ -35,7 +35,7 @@ void ShooterFlywheelStop::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterFlywheelStop::IsFinished() {
-    return true;
+    return m_UntimedCommand || IsTimedOut();
 }
 
 // Called once after isFinished returns true
@@ -47,4 +47,7 @@ void ShooterFlywheelStop::End() {
 // subsystems is scheduled to run
 void ShooterFlywheelStop::Interrupted() {
 
+}
+
+ShooterFlywheelStop::ShooterFlywheelStop(double timeout): Command(timeout) {
 }
