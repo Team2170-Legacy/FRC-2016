@@ -50,4 +50,5 @@ void ShooterKickBall::Interrupted() {
 }
 
 ShooterKickBall::ShooterKickBall(double timeout): Command(timeout) {
+	Requires(Robot::shooter.get());
 }
