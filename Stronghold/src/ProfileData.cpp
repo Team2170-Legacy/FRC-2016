@@ -7,6 +7,7 @@
 
 
 #include "ProfileData.h"
+//when adding the profile data dont forget the &
 
 const ProfileData TestData = {{
 		{0,	0	,10},
