@@ -154,6 +154,10 @@ void Shooter::ShooterAim(float ElevationCmd) {
 
 	elevationMotor->Set(ElevationCmd);
 }
+
+void Shooter::EncoderReset() {
+	elevationEncoder->Reset();
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 

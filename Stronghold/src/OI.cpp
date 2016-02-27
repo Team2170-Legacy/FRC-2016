@@ -29,11 +29,12 @@
 #include "Commands/ShooterFlywheelReverse.h"
 #include "Commands/ShooterFlywheelStop.h"
 #include "Commands/ShooterGoHome.h"
-#include "Commands/ShooterHome.h"
+#include "Commands/ShooterInitialize.h"
 #include "Commands/ShooterJoystickControl.h"
 #include "Commands/ShooterKickBall.h"
 #include "Commands/ShooterLower.h"
 #include "Commands/ShooterLowerHook.h"
+#include "Commands/ShooterMoveOffHome.h"
 #include "Commands/ShooterPrematchPosition.h"
 #include "Commands/ShooterRaise.h"
 #include "Commands/ShooterRaiseHook.h"
@@ -63,12 +64,12 @@ OI::OI() {
     
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("Shooter Initialize", new ShooterInitialize());
     SmartDashboard::PutData("Autonomous Collect Ball", new AutonomousCollectBall());
     SmartDashboard::PutData("Autonomous Climb Tower", new AutonomousClimbTower());
     SmartDashboard::PutData("Autoonomous Fire Boulder High", new AutoonomousFireBoulderHigh());
     SmartDashboard::PutData("Shooter Lower", new ShooterLower());
     SmartDashboard::PutData("Shooter Raise", new ShooterRaise());
-    SmartDashboard::PutData("Shooter Home", new ShooterHome());
     SmartDashboard::PutData("Shooter Flywheel Reverse", new ShooterFlywheelReverse());
     SmartDashboard::PutData("Shooter Flywheel Low", new ShooterFlywheelLow());
     SmartDashboard::PutData("Shooter Flywheel Stop", new ShooterFlywheelStop());

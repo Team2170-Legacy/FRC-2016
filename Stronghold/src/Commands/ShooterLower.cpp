@@ -39,7 +39,7 @@ bool ShooterLower::IsFinished() {
 	bool bFinished = false;
 
 	// Limit switch active forces stop
-	bFinished = Robot::shooter->ShooterAtMax();
+	bFinished = Robot::shooter->ShooterIsHome();
 
 	if (m_AbsoluteCommand)
 	{
