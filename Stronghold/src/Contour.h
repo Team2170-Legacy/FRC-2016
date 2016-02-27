@@ -24,6 +24,9 @@ public:
 	virtual ~Contour();
 	Contour(double width, double height, double area, double centerX,
 			double centerY);
+	static bool ContourExpired(const Contour & c);
+	const unsigned kMaxContourAge = 10;
+
 };
 
 #endif /* SRC_CONTOUR_H_ */

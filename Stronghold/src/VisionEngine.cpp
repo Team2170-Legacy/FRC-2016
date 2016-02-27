@@ -30,7 +30,15 @@ void VisionEngine::ProcessContours() {
 	std::vector<double> height = table->GetNumberArray("height",
 			llvm::ArrayRef<double>());
 	std::vector<double> area = table->GetNumberArray("area", llvm::ArrayRef<double>());
+	std::vector<double> centerX = table->GetNumberArray("centerX",
+			llvm::ArrayRef<double>());
+	std::vector<double> centerY = table->GetNumberArray("centerY",
+			llvm::ArrayRef<double>());
 	size_t contourCount = width.size();
+
+	ContourList.clear();	// clear the contour list
+	ContourList.remove_if(Contour::ContourExpired);
+
 	if (contourAge < kMaxContourAge) {
 		contourAge++;
 
@@ -45,6 +53,9 @@ void VisionEngine::ProcessContours() {
 		for (size_t i = 0; i < contourCount; i++) {
 			double aspectRatio = width[i] / height[i];
 
+			ContourList.push_front(Contour(width[i], height[i],
+					area[i], centerX[i], centerY[i]));
+
 			//std::cout << bestContourRatio << " : " << aspectRatio << std::endl;
 
 			if (ContourScore(aspectRatio) < ContourScore(bestContourRatio)) {
@@ -53,10 +64,6 @@ void VisionEngine::ProcessContours() {
 				bestContour = i;
 				bestContourRatio = aspectRatio;
 
-				std::vector<double> centerX = table->GetNumberArray("centerX",
-						llvm::ArrayRef<double>());
-				std::vector<double> centerY = table->GetNumberArray("centerY",
-						llvm::ArrayRef<double>());
 
 				bestContourX = centerX[i];
 				bestContourY = centerY[i];

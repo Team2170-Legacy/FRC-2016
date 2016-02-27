@@ -26,3 +26,7 @@ Contour::Contour(double width, double height, double area, double centerX,
 	AspectRatio = width / height;
 	Perimeter = 2 * height + 2 * width;
 }
+
+bool Contour::ContourExpired(const Contour& c) {
+	return (c.Age > c.kMaxContourAge);
+}
