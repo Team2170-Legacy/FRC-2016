@@ -44,5 +44,8 @@ public:
 	virtual void TeleopInit();
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
+
+	//need this for chooser to work
+	SendableChooser *chooser;
 };
 #endif
