@@ -22,8 +22,8 @@ private:
 public:
 	Contour();
 	virtual ~Contour();
-	Contour(double Width, double Height, double Area, double CenterX,
-			double CenterY);
+	Contour(double width, double height, double area, double centerX,
+			double centerY);
 };
 
 #endif /* SRC_CONTOUR_H_ */

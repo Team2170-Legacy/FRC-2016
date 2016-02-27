@@ -16,3 +16,13 @@ Contour::~Contour() {
 	// TODO Auto-generated destructor stub
 }
 
+Contour::Contour(double width, double height, double area, double centerX,
+		double centerY) {
+	Width = width;
+	Height = height;
+	Area = area;
+	CenterX = centerX;
+	CenterY = centerY;
+	AspectRatio = width / height;
+	Perimeter = 2 * height + 2 * width;
+}
