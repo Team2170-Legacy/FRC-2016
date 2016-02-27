@@ -26,7 +26,7 @@ public:
 			double centerY);
 	static bool ContourExpired(const Contour & c);
 	const unsigned kMaxContourAge = 10;
-
+	void IncrementAge(){Age++;}
 };
 
 #endif /* SRC_CONTOUR_H_ */

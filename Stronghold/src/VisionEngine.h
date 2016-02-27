@@ -26,7 +26,7 @@ private:
 
 	const double kIdealAspectRatio = 1.6;
 	double ContourScore(double aspect);
-
+	void AgeContourList();
 
 public:
 	VisionEngine();
@@ -34,6 +34,7 @@ public:
 	void ProcessContours();
 	void StartGRIP();
 	void StopGRIP();
+
 
 	double ConvertPixels(double pixels) {return pixels * kPixelConversion / 12.0;} //converts from pixels to feet
 };

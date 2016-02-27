@@ -36,7 +36,8 @@ void VisionEngine::ProcessContours() {
 			llvm::ArrayRef<double>());
 	size_t contourCount = width.size();
 
-	ContourList.clear();	// clear the contour list
+	//ContourList.clear();	 clear the contour list
+	AgeContourList();
 	ContourList.remove_if(Contour::ContourExpired);
 
 	if (contourAge < kMaxContourAge) {
@@ -117,6 +118,13 @@ void VisionEngine::StartGRIP() {
 
 double VisionEngine::ContourScore(double aspect) {
 	return fabs(kIdealAspectRatio - aspect);
+}
+
+void VisionEngine::AgeContourList() {
+	std::list<Contour>::iterator cIt;
+	for (cIt = ContourList.begin(); cIt != ContourList.end(); ++cIt) {
+		cIt->IncrementAge();
+	}
 }
 
 void VisionEngine::StopGRIP() {
