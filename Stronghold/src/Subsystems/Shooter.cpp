@@ -141,7 +141,6 @@ bool Shooter::HookAtMax() {
 }
 
 void Shooter::ShooterAim(float ElevationCmd) {
-	ElevationCmd = -ElevationCmd;
 	ElevationCmd = DEADBAND_SHOOTER(ElevationCmd, 0.15);
 
 	if ((ElevationCmd > 0.0) && ShooterAtMax()) {
