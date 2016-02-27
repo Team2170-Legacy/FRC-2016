@@ -25,7 +25,8 @@ extern const ProfileData Rotate45CounterClockwise;
 extern const ProfileData Rotate90CounterClockwise;
 // 180 degrees counterclockwise
 extern const ProfileData Rotate180CounterClockwise;
-
+// 50 inches forward
+extern const ProfileData AutonomousMoveToDefense;
 
 
 
