@@ -8,17 +8,7 @@
 #ifndef SRC_VISIONENGINE_H_
 #define SRC_VISIONENGINE_H_
 #include "WPILib.h"
-
-class Contour {
-private:
-	unsigned Age = 0;
-	double AspectRatio = 0.0;
-	double Width = 0.0;
-	double Height = 0.0;
-	double Perimeter = 0.0;
-	double Area = 0.0;
-	double CenterX = 0.0, CenterY = 0.0;
-};
+#include "Contour.h"
 
 class VisionEngine {
 private:
