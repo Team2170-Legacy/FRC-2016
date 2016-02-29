@@ -80,6 +80,10 @@ OI::OI() {
     rightBumper->WhenPressed(new ChassisRotate90CW());
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("Chassis Rotate 180 CCW", new ChassisRotate180CCW());
+    SmartDashboard::PutData("Chassis Rotate 90 CCW", new ChassisRotate90CCW());
+    SmartDashboard::PutData("Chassis Rotate 90 CW", new ChassisRotate90CW());
+    SmartDashboard::PutData("Chassis Rotate 180 CW", new ChassisRotate180CW());
     SmartDashboard::PutData("Shooter Initialize", new ShooterInitialize());
     SmartDashboard::PutData("Shooter Prematch Position", new ShooterPrematchPosition());
     SmartDashboard::PutData("Shooter Flywheel Low", new ShooterFlywheelLow());
