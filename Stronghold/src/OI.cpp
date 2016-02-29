@@ -34,6 +34,7 @@
 #include "Commands/ChassisRotate180CW.h"
 #include "Commands/ChassisRotate90CCW.h"
 #include "Commands/ChassisRotate90CW.h"
+#include "Commands/ChassisSetMode.h"
 #include "Commands/ShooterFlywheelHigh.h"
 #include "Commands/ShooterFlywheelLow.h"
 #include "Commands/ShooterFlywheelReverse.h"
