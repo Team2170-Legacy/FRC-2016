@@ -17,6 +17,7 @@
 #include "Commands/AutonomousClimbTower.h"
 #include "Commands/AutonomousCollectBall.h"
 #include "Commands/AutonomousDefault.h"
+#include "Commands/AutonomousDriveForwardStraight.h"
 #include "Commands/AutonomousDriveLowBarShootLow.h"
 #include "Commands/AutonomousDriveLowShootHigh.h"
 #include "Commands/AutonomousDriveStraightForTime.h"
@@ -29,6 +30,10 @@
 #include "Commands/AutonomousShooterAim.h"
 #include "Commands/AutonomousVelocityCommand.h"
 #include "Commands/AutoonomousFireBoulderHigh.h"
+#include "Commands/ChassisRotate180CCW.h"
+#include "Commands/ChassisRotate180CW.h"
+#include "Commands/ChassisRotate90CCW.h"
+#include "Commands/ChassisRotate90CW.h"
 #include "Commands/ShooterFlywheelHigh.h"
 #include "Commands/ShooterFlywheelLow.h"
 #include "Commands/ShooterFlywheelReverse.h"
@@ -69,6 +74,10 @@ OI::OI() {
     shootHigh->WhenPressed(new AutoonomousFireBoulderHigh());
     driveJoystick.reset(new Joystick(0));
     
+    leftBumper.reset(new JoystickButton(driveJoystick.get(), 5));
+    leftBumper->WhenPressed(new ChassisRotate90CCW());
+    rightBumper.reset(new JoystickButton(driveJoystick.get(), 6));
+    rightBumper->WhenPressed(new ChassisRotate90CW());
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("Shooter Initialize", new ShooterInitialize());
