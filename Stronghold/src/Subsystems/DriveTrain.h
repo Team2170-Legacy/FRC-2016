@@ -69,6 +69,8 @@ public:
 			std::shared_ptr<const ProfileData> RightWheel);
 	void ServiceMotionProfile();
 	bool MotionProfileComplete();
+	CANSpeedController::ControlMode GetChassisMode();
+	void SetChassisMode(CANSpeedController::ControlMode mode);
 
 	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
 	void TankDriveWithTriggers(float Left, float Right, float Trigger);

@@ -24,7 +24,7 @@ ChassisSetMode::ChassisSetMode(): Command() {
 
 // Called just before this Command runs the first time
 void ChassisSetMode::Initialize() {
-
+	Robot::driveTrain->SetChassisMode(newMode);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,7 +34,7 @@ void ChassisSetMode::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ChassisSetMode::IsFinished() {
-    return false;
+    return (newMode == Robot::driveTrain->GetChassisMode());
 }
 
 // Called once after isFinished returns true
@@ -46,4 +46,9 @@ void ChassisSetMode::End() {
 // subsystems is scheduled to run
 void ChassisSetMode::Interrupted() {
 
+}
+
+ChassisSetMode::ChassisSetMode(CANSpeedController::ControlMode mode): Command() {
+	Requires(Robot::driveTrain.get());
+	newMode = mode;
 }

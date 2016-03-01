@@ -96,10 +96,8 @@ void DriveTrain::SetVoltagePercentMode() {
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kPercentVbus);
 	SetBrakeMode(CANTalon::NeutralMode::kNeutralMode_Brake);
 	cANTalonLeft->SetVoltageRampRate(kDefaultVoltageRamp);
-//	cANTalonLeft->EnableControl();
 	cANTalonLeft->Set(0.0);
 	cANTalonRight->SetVoltageRampRate(kDefaultVoltageRamp);
-//	cANTalonRight->EnableControl();
 	cANTalonRight->Set(0.0);
 
 }
@@ -179,7 +177,6 @@ void DriveTrain::SetMotionProfileMode() {
 	cANTalonLeft->SetSensorDirection(true);
 	cANTalonLeft->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonLeft->SetVoltageRampRate(0.0);
-//	cANTalonLeft->EnableControl();
 
 	cANTalonRight->SetControlMode(CANSpeedController::ControlMode::kMotionProfile);
 	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
@@ -189,7 +186,6 @@ void DriveTrain::SetMotionProfileMode() {
 	cANTalonRight->SetSensorDirection(true);
 	cANTalonRight->Set(CANTalon::SetValueMotionProfile::SetValueMotionProfileDisable);
 	cANTalonRight->SetVoltageRampRate(0.0);
-//	cANTalonRight->EnableControl();
 
 }
 
@@ -333,7 +329,6 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 void  DriveTrain::ServiceMotionProfile() {
 	cANTalonLeft->ProcessMotionProfileBuffer();
 	cANTalonRight->ProcessMotionProfileBuffer();
-//	printf("I'm in the notifier\n");
 }
 
 void DriveTrain::SetBrakeMode( CANSpeedController::NeutralMode Mode) {
@@ -391,4 +386,25 @@ bool DriveTrain::MotionProfileComplete() {
 	}
 
 	return Complete;
+}
+
+CANSpeedController::ControlMode DriveTrain::GetChassisMode() {
+	return cANTalonLeft->GetControlMode();
+}
+
+void DriveTrain::SetChassisMode(CANSpeedController::ControlMode mode) {
+	switch (mode) {
+	case CANSpeedController::ControlMode::kMotionProfile:
+		SetMotionProfileMode();
+		break;
+	case CANSpeedController::ControlMode::kPosition:
+		SetClosedLoopMode();
+		break;
+	case CANSpeedController::ControlMode::kSpeed:
+		SetVelocityMode();
+		break;
+	default:
+		SetVoltagePercentMode();
+		break;
+	}
 }
