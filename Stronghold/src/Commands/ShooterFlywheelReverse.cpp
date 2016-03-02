@@ -48,3 +48,7 @@ void ShooterFlywheelReverse::End() {
 void ShooterFlywheelReverse::Interrupted() {
 	End();
 }
+
+ShooterFlywheelReverse::ShooterFlywheelReverse(double timeout): Command(timeout) {
+	Requires(Robot::shooter.get());
+}
