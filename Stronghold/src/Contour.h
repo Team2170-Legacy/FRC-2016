@@ -8,6 +8,8 @@
 #ifndef SRC_CONTOUR_H_
 #define SRC_CONTOUR_H_
 
+#include <math.h>
+
 class Contour {
 
 private:
@@ -27,6 +29,8 @@ public:
 	static bool ContourExpired(const Contour & c);
 	const unsigned kMaxContourAge = 10;
 	void IncrementAge(){Age++;}
+
+	double ScoreContour() { return exp(-1 * pow(Age, 0.5)) * pow(1 / (1.6 - AspectRatio), 0.5); }
 };
 
 #endif /* SRC_CONTOUR_H_ */

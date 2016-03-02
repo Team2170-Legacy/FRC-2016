@@ -70,6 +70,7 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
+
 	Robot::driveTrain->SetVoltagePercentMode();
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();

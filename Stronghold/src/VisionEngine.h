@@ -14,6 +14,7 @@ class VisionEngine {
 private:
 	//Grip Network Table
 	std::shared_ptr<NetworkTable> table;
+
 	std::list<Contour> ContourList;
 	pid_t pid = -1;		// process id for fork
 

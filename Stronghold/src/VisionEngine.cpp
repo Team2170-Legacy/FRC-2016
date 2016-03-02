@@ -29,7 +29,8 @@ void VisionEngine::ProcessContours() {
 			llvm::ArrayRef<double>());
 	std::vector<double> height = table->GetNumberArray("height",
 			llvm::ArrayRef<double>());
-	std::vector<double> area = table->GetNumberArray("area", llvm::ArrayRef<double>());
+	std::vector<double> area = table->GetNumberArray("area",
+			llvm::ArrayRef<double>());
 	std::vector<double> centerX = table->GetNumberArray("centerX",
 			llvm::ArrayRef<double>());
 	std::vector<double> centerY = table->GetNumberArray("centerY",
@@ -39,6 +40,8 @@ void VisionEngine::ProcessContours() {
 	//ContourList.clear();	 clear the contour list
 	AgeContourList();
 	ContourList.remove_if(Contour::ContourExpired);
+
+	std::cout << "Number of Contours : " << ContourList.size() << std::endl;
 
 	if (contourAge < kMaxContourAge) {
 		contourAge++;
@@ -60,7 +63,7 @@ void VisionEngine::ProcessContours() {
 			//std::cout << bestContourRatio << " : " << aspectRatio << std::endl;
 
 			if (ContourScore(aspectRatio) < ContourScore(bestContourRatio)) {
-				std::cout << "Found better aspect ratio" << std::endl;
+//				std::cout << "Found better aspect ratio" << std::endl;
 				contourAge = 0;
 				bestContour = i;
 				bestContourRatio = aspectRatio;
@@ -79,21 +82,21 @@ void VisionEngine::ProcessContours() {
 
 			}
 //NOT IN CARTESIAN
-			std::cout << "Best Contour : " << bestContour + 1 << std::endl;
-			std::cout << "Best Ratio : " << bestContourRatio << std::endl;
-			std::cout << "Best Dimensions : " << bestWidth << " x " << bestHeight << std::endl;
-			std::cout << "Best Perimeter : " << bestPerimeter << std::endl;
-			std::cout << "Center : (" << bestContourX << ", "
-					<< bestContourY << ")" << std::endl;
+//			std::cout << "Best Contour : " << bestContour + 1 << std::endl;
+//			std::cout << "Best Ratio : " << bestContourRatio << std::endl;
+//			std::cout << "Best Dimensions : " << bestWidth << " x " << bestHeight << std::endl;
+//			std::cout << "Best Perimeter : " << bestPerimeter << std::endl;
+//			std::cout << "Center : (" << bestContourX << ", "
+//					<< bestContourY << ")" << std::endl;
 			double distX = 319 - bestContourX + CAMERA_OFFSET_X;
 			double distY = 239 - bestContourY + CAMERA_OFFSET_Y;
 
 			distX = ConvertPixels(distX);
 			distY = ConvertPixels(distY);
 
-			std::cout << "Move : (" << distX << ", " << distY << ")" << std::endl
-					<< std::endl;
-			std::cout << "Best Area : " << bestArea << std::endl;
+//			std::cout << "Move : (" << distX << ", " << distY << ")" << std::endl
+//					<< std::endl;
+//			std::cout << "Best Area : " << bestArea << std::endl;
 
 		}
 	} else {
@@ -110,7 +113,7 @@ void VisionEngine::StartGRIP() {
 		if (pid == 0)
 		{
 			std::cout << "GRIP has begun operation" <<std::endl;
-			system("/home/lvuser/grip &");
+//			system("/home/lvuser/grip &");
 
 		}
 	}
