@@ -30,12 +30,32 @@ void ShooterKickBall::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ShooterKickBall::Execute() {
-	Robot::shooter->KickerExtend();
+	switch (m_CurrentKickState) {
+	case kKICK_BALL:
+		Robot::shooter->KickerExtend();
+		if (Robot::shooter->KickerDetect()) {
+			Robot::shooter->KickerStop();
+			m_CurrentKickState = kPULL_KICKER_BACK;
+		}
+		break;
+	case kPULL_KICKER_BACK:
+		Robot::shooter->KickerRetract();
+		if (Robot::shooter->KickerDetect()) {
+			Robot::shooter->KickerStop();
+			m_CurrentKickState = kKICKER_CREEP_FORWARD;
+		}
+		break;
+	case kKICKER_CREEP_FORWARD:
+		break;
+	case kKICKER_STOP:
+		Robot::shooter->KickerStop();
+		break;
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterKickBall::IsFinished() {
-    return IsTimedOut() || Robot::shooter->KickerDetect();
+    return IsTimedOut();
 }
 
 // Called once after isFinished returns true

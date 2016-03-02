@@ -50,7 +50,7 @@ void Shooter::InitDefaultCommand() {
 }
 
 void Shooter::FlyWheelReverse() {
-	flyWheelMotor->Set(kFlyWheelReverseSpeed);
+	flyWheelMotor->Set(-kFlyWheelReverseSpeed);
 }
 
 void Shooter::FlyWheelStop() {
@@ -58,11 +58,11 @@ void Shooter::FlyWheelStop() {
 }
 
 void Shooter::FlyWheelHighSpeed() {
-	flyWheelMotor->Set(kFlyWheelHighSpeed);
+	flyWheelMotor->Set(-kFlyWheelHighSpeed);
 }
 
 void Shooter::FlyWheelLowSpeed() {
-	flyWheelMotor->Set(kFlyWheelLowSpeed);
+	flyWheelMotor->Set(-kFlyWheelLowSpeed);
 }
 
 void Shooter::KickerExtend() {
@@ -79,7 +79,7 @@ bool Shooter::KickerDetect() {
 
 void Shooter::ShooterElevate() {
 	if (!ShooterAtMax()) {
-		elevationMotor->Set(kShooterElevateSpeed);
+		elevationMotor->Set(-kShooterElevateSpeed);
 	}
 	else {
 		elevationMotor->Set(kShooterStop);
@@ -88,7 +88,7 @@ void Shooter::ShooterElevate() {
 
 void Shooter::ShooterLower() {
 	if (!ShooterIsHome()) {
-		elevationMotor->Set(kShooterLowerSpeed);
+		elevationMotor->Set(-kShooterLowerSpeed);
 	}
 	else {
 		elevationMotor->Set(kShooterStop);
@@ -153,7 +153,7 @@ void Shooter::ShooterAim(float ElevationCmd) {
 		ElevationCmd = 0.0;
 	}
 
-	elevationMotor->Set(ElevationCmd);
+	elevationMotor->Set(-ElevationCmd);
 }
 
 void Shooter::EncoderReset() {
