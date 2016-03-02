@@ -37,7 +37,6 @@ void VisionEngine::ProcessContours() {
 			llvm::ArrayRef<double>());
 	size_t contourCount = width.size();
 
-	//ContourList.clear();	 clear the contour list
 	AgeContourList();
 	ContourList.remove_if(Contour::ContourExpired);
 
@@ -105,18 +104,7 @@ void VisionEngine::ProcessContours() {
 }
 
 void VisionEngine::StartGRIP() {
-	/* Run GRIP in a new process */
-	if (pid == -1)
-	{
-		pid = fork();
-
-		if (pid == 0)
-		{
-			std::cout << "GRIP has begun operation" <<std::endl;
-//			system("/home/lvuser/grip &");
-
-		}
-	}
+	/* GRIP is now run on a co-processor */
 }
 
 double VisionEngine::ContourScore(double aspect) {
@@ -128,6 +116,38 @@ void VisionEngine::AgeContourList() {
 	for (cIt = ContourList.begin(); cIt != ContourList.end(); ++cIt) {
 		cIt->IncrementAge();
 	}
+}
+
+float VisionEngine::CalculateScore(Contour c) {
+	double AspectError = fabs(c.getAspectRatio() - kIdealAspectRatio);
+	float Score = 0.0;
+
+	if (AspectError < 0.1) {
+		Score = 10.0;
+	}
+	else if (AspectError < 0.15) {
+		Score = 9.0;
+	}
+	else if (AspectError < 0.20) {
+		Score = 8.0;
+	}
+	else if (AspectError < 0.25) {
+		Score = 7.0;
+	}
+	else if (AspectError < 0.3) {
+		Score = 6.0;
+	}
+	else if (AspectError < 0.6) {
+		Score = 5.0;
+	}
+	else if (AspectError < 1.0) {
+		Score = 4.0;
+	}
+	else {
+		Score = 3.0;
+	}
+	c.setScore(Score);
+	return Score;
 }
 
 void VisionEngine::StopGRIP() {

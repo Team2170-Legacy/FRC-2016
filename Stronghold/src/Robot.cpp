@@ -52,7 +52,6 @@ void Robot::RobotInit() {
 	SmartDashboard::PutData("Autonomous Modes", chooser);
 
     ve.reset(new VisionEngine());
-    ve->StartGRIP();
 }
 
 /**

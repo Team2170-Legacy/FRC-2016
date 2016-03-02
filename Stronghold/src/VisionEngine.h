@@ -27,6 +27,7 @@ private:
 
 	const double kIdealAspectRatio = 1.6;
 	double ContourScore(double aspect);
+	float CalculateScore(Contour c);
 	void AgeContourList();
 
 public:

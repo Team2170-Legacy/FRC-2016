@@ -20,6 +20,7 @@ private:
 	double Perimeter = 0.0;
 	double Area = 0.0;
 	double CenterX = 0.0, CenterY = 0.0;
+	float Score = 0.0;
 
 public:
 	Contour();
@@ -31,6 +32,50 @@ public:
 	void IncrementAge(){Age++;}
 
 	double ScoreContour() { return exp(-1 * pow(Age, 0.5)) * pow(1 / (1.6 - AspectRatio), 0.5); }
+
+	unsigned getAge() const {
+		return Age;
+	}
+
+	double getArea() const {
+		return Area;
+	}
+
+	double getAspectRatio() const {
+		return AspectRatio;
+	}
+
+	double getCenterX() const {
+		return CenterX;
+	}
+
+	double getCenterY() const {
+		return CenterY;
+	}
+
+	double getHeight() const {
+		return Height;
+	}
+
+	const unsigned getMaxContourAge() const {
+		return kMaxContourAge;
+	}
+
+	double getPerimeter() const {
+		return Perimeter;
+	}
+
+	double getWidth() const {
+		return Width;
+	}
+
+	float getScore() const {
+		return Score;
+	}
+
+	void setScore(float score = 0.0) {
+		Score = score;
+	}
 };
 
 #endif /* SRC_CONTOUR_H_ */
