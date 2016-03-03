@@ -28,7 +28,11 @@ public:
 	Contour(double width, double height, double area, double centerX,
 			double centerY);
 	static bool ContourExpired(const Contour & c);
+	static bool ScoreSort(const Contour& first, const Contour& second);
+	static bool ContourIsRunt(const Contour& c);
+
 	const unsigned kMaxContourAge = 10;
+	const float kMinContourScore = 0.5;
 	void IncrementAge(){Age++;}
 
 	double ScoreContour() { return exp(-1 * pow(Age, 0.5)) * pow(1 / (1.6 - AspectRatio), 0.5); }

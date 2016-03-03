@@ -26,8 +26,9 @@ private:
 	const double kPixelConversion = 0.17; //conversion factor from pixels to inches
 
 	const double kIdealAspectRatio = 1.6;
+	const double kIdealAreaRatio = 0.3;		// tape uses 30% of volume described by 12x20 polygon
 	double ContourScore(double aspect);
-	float CalculateScore(Contour c);
+	float CalculateScore(Contour& c);
 	void AgeContourList();
 
 public:

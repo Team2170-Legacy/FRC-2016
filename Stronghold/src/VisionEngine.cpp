@@ -23,6 +23,7 @@ VisionEngine::~VisionEngine() {
 }
 
 void VisionEngine::ProcessContours() {
+	Contour pContour;
 	//GRIP Network Table
 
 	std::vector<double> width = table->GetNumberArray("width",
@@ -56,8 +57,9 @@ void VisionEngine::ProcessContours() {
 		for (size_t i = 0; i < contourCount; i++) {
 			double aspectRatio = width[i] / height[i];
 
-			ContourList.push_front(Contour(width[i], height[i],
-					area[i], centerX[i], centerY[i]));
+			Contour pContour(width[i], height[i], area[i], centerX[i], centerY[i]);
+			CalculateScore(pContour);
+			ContourList.push_front(pContour);
 
 			//std::cout << bestContourRatio << " : " << aspectRatio << std::endl;
 
@@ -101,6 +103,10 @@ void VisionEngine::ProcessContours() {
 	} else {
 		std::cout << "No contour" << std::endl;
 	}
+
+	// remove "runts" from contour list
+	ContourList.remove_if(Contour::ContourIsRunt);
+	ContourList.sort(Contour::ScoreSort);
 }
 
 void VisionEngine::StartGRIP() {
@@ -115,37 +121,68 @@ void VisionEngine::AgeContourList() {
 	std::list<Contour>::iterator cIt;
 	for (cIt = ContourList.begin(); cIt != ContourList.end(); ++cIt) {
 		cIt->IncrementAge();
+		cIt->setScore(cIt->getScore() - 0.1);		// Decrement score by 0.1 each birthday
 	}
 }
 
-float VisionEngine::CalculateScore(Contour c) {
+float VisionEngine::CalculateScore(Contour&  c) {
 	double AspectError = fabs(c.getAspectRatio() - kIdealAspectRatio);
+	double AreaError = fabs((c.getArea() / (c.getHeight() * c.getWidth())) - kIdealAreaRatio);
+
 	float Score = 0.0;
 
+	// Score based on ideal aspect ratio of 1.6
 	if (AspectError < 0.1) {
-		Score = 10.0;
-	}
-	else if (AspectError < 0.15) {
-		Score = 9.0;
-	}
-	else if (AspectError < 0.20) {
-		Score = 8.0;
-	}
-	else if (AspectError < 0.25) {
-		Score = 7.0;
-	}
-	else if (AspectError < 0.3) {
-		Score = 6.0;
-	}
-	else if (AspectError < 0.6) {
 		Score = 5.0;
 	}
-	else if (AspectError < 1.0) {
+	else if (AspectError < 0.15) {
+		Score = 4.5;
+	}
+	else if (AspectError < 0.20) {
 		Score = 4.0;
 	}
-	else {
+	else if (AspectError < 0.25) {
+		Score = 3.5;
+	}
+	else if (AspectError < 0.3) {
 		Score = 3.0;
 	}
+	else if (AspectError < 0.6) {
+		Score = 2.5;
+	}
+	else if (AspectError < 1.0) {
+		Score = 2.0;
+	}
+	else {
+		Score = 1.5;
+	}
+
+	// Score based on target using 30% of contour block area
+	if (AreaError < 0.1) {
+		Score += 5.0;
+	}
+	else if (AreaError < 0.15) {
+		Score += 4.5;
+	}
+	else if (AreaError < 0.20) {
+		Score += 4.0;
+	}
+	else if (AreaError < 0.25) {
+		Score += 3.5;
+	}
+	else if (AreaError < 0.3) {
+		Score += 3.0;
+	}
+	else if (AreaError < 0.6) {
+		Score += 2.5;
+	}
+	else if (AreaError < 1.0) {
+		Score += 2.0;
+	}
+	else {
+		Score += 1.5;
+	}
+
 	c.setScore(Score);
 	return Score;
 }

@@ -30,3 +30,11 @@ Contour::Contour(double width, double height, double area, double centerX,
 bool Contour::ContourExpired(const Contour& c) {
 	return (c.Age > c.kMaxContourAge);
 }
+
+bool Contour::ScoreSort(const Contour& first, const Contour& second) {
+	return (first.Score > second.Score);
+}
+
+bool Contour::ContourIsRunt(const Contour& c) {
+	return (c.Score < c.kMinContourScore);
+}
