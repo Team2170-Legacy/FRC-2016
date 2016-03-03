@@ -114,11 +114,11 @@ float Shooter::GetShooterElevation() {
 }
 
 void Shooter::HookRaise() {
-	hookMotor->Set(kHookRaiseSpeed);
+	hookMotor->Set(-kHookRaiseSpeed);
 }
 
 void Shooter::HookLower() {
-	hookMotor->Set(kHookLowerSpeed);
+	hookMotor->Set(-kHookLowerSpeed);
 }
 
 bool Shooter::HookIsHome() {
