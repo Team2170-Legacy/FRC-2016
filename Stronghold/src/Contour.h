@@ -80,6 +80,44 @@ public:
 	void setScore(float score = 0.0) {
 		Score = score;
 	}
+
+	void operator=(const Contour& c) {
+		Age = c.Age;
+		AspectRatio = c.AspectRatio;
+		Width = c.Width;
+		Height = c.Height;
+		Perimeter = c.Perimeter;
+		Area = c.Area;
+		CenterX = c.CenterX;
+		CenterY = c.CenterY;
+		Score = c.Score;
+
+	}
+
+	bool operator<(const Contour& r) {
+		return(this->Score < r.Score);
+	}
+
+	inline bool operator>(const Contour& r) {
+		return(r.Score > this->Score);
+	}
+
+	inline bool operator<=(const Contour& r) {
+		return !(this->Score > r.Score);
+	}
+
+	inline bool operator>=(const Contour& r) {
+		return !(this->Score < r.Score);
+	}
+
+	bool operator==(const Contour& r) {
+		return(this->Score == r.Score);
+	}
+
+	inline bool operator!=(const Contour& r) {
+		return !(this->Score == r.Score);
+	}
+
 };
 
 #endif /* SRC_CONTOUR_H_ */

@@ -106,7 +106,12 @@ void VisionEngine::ProcessContours() {
 
 	// remove "runts" from contour list
 	ContourList.remove_if(Contour::ContourIsRunt);
+
+	//Sort the contour list to find the best
 	ContourList.sort(Contour::ScoreSort);
+
+	BestNewContour = ContourList.begin();
+	BestContour = *BestNewContour;
 }
 
 void VisionEngine::StartGRIP() {
