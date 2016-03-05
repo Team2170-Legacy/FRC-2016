@@ -55,7 +55,7 @@ private:
 	const float kHookStop = 0.0;
 
 	const float kKickerExtendSpeed = 1.0;
-	const float kKickerRetractSpeed = -0.5;
+	const float kKickerRetractSpeed = -0.3;
 	const float kKickerStop = 0.0;
 
 	bool mShooterHomed = false;
@@ -78,6 +78,7 @@ public:
 	void KickerRetract();
 	void KickerStop();
 	bool KickerDetect();
+	void KickerMove(float speed);
 
 	// Elevation Manipulation public functions
 	void ShooterElevate();
