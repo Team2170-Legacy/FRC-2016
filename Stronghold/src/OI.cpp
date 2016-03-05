@@ -63,8 +63,8 @@ OI::OI() {
     cycleKicker->WhenPressed(new ShooterKickBall());
     homeShooter.reset(new JoystickButton(shooterJoystick.get(), 8));
     homeShooter->WhenPressed(new ShooterInitialize());
-    autoRaiseandClimb.reset(new JoystickButton(shooterJoystick.get(), 11));
-    autoRaiseandClimb->WhenPressed(new AutonomousRaiseandClimb());
+//    autoRaiseandClimb.reset(new JoystickButton(shooterJoystick.get(), 11));
+//   autoRaiseandClimb->WhenPressed(new AutonomousRaiseandClimb());
     manualLowerHook.reset(new JoystickButton(shooterJoystick.get(), 7));
     manualLowerHook->WhileHeld(new ShooterLowerHook());
     manualRaiseHook.reset(new JoystickButton(shooterJoystick.get(), 6));

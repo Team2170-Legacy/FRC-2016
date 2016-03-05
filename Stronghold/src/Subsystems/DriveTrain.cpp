@@ -350,14 +350,14 @@ void DriveTrain::SetMotionProfileState(CANTalon::SetValueMotionProfile mode) {
 void DriveTrain::SetMotorGains() {
 
 	cANTalonLeft->SelectProfileSlot(0);
-	cANTalonLeft->SetP(kPorportionalGain);
-	cANTalonLeft->SetD(kDerivativeGain);
-	cANTalonLeft->SetF(kFeedForwardGain);
+//	cANTalonLeft->SetP(kPorportionalGain);
+//	cANTalonLeft->SetD(kDerivativeGain);
+//	cANTalonLeft->SetF(kFeedForwardGain);
 
 	cANTalonRight->SelectProfileSlot(0);
-	cANTalonRight->SetP(kPorportionalGain);
-	cANTalonRight->SetD(kDerivativeGain);
-	cANTalonRight->SetF(kFeedForwardGain);
+//	cANTalonRight->SetP(kPorportionalGain);
+//	cANTalonRight->SetD(kDerivativeGain);
+//	cANTalonRight->SetF(kFeedForwardGain);
 
 }
 
