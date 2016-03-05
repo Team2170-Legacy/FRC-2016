@@ -163,6 +163,10 @@ void Shooter::EncoderReset() {
 bool Shooter::HookAtRearMax() {
 	return hookMax->Get();
 }
+
+void Shooter::KickerMove(float speed) {
+	ballKicker->Set(speed);
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 

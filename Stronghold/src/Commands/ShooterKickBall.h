@@ -44,6 +44,8 @@ private:
 		kPULL_KICKER_BACK, kKICKER_CREEP_FORWARD, kKICKER_STOP};
 	KickerState m_CurrentKickState = kKICK_BALL;
 	unsigned KickCount = 0;
+	const float kCreepSpeed = 0.25;
+	const unsigned kKickDelay = 15;
 };
 
 #endif
