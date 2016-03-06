@@ -109,8 +109,8 @@ bool Shooter::ShooterAtMax() {
 	return elevationMax->Get();
 }
 
-float Shooter::GetShooterElevation() {
-	return elevationEncoder->GetDistance();
+int Shooter::GetShooterElevation() {
+	return elevationEncoder->GetRaw();
 }
 
 void Shooter::HookRaise() {

@@ -20,7 +20,6 @@ private:
 	std::shared_ptr<Joystick> shooterJoystick;
 	std::shared_ptr<JoystickButton> cycleKicker;
 	std::shared_ptr<JoystickButton> homeShooter;
-	std::shared_ptr<JoystickButton> autoRaiseandClimb;
 	std::shared_ptr<JoystickButton> manualLowerHook;
 	std::shared_ptr<JoystickButton> manualRaiseHook;
 	std::shared_ptr<JoystickButton> shootLow;
