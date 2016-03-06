@@ -37,6 +37,9 @@ extern const ProfileData AutonomousMoveToDefense;
 // 230 inches forward, past the low bar
 extern const ProfileData AutonomousDrivePastLowBar;
 
+// 230 inches forward, past the low bar, 60 ips
+extern const ProfileData AutonomousDrivePastLowBar_60ips;
+
 // 100  inches, 50 ips
 extern const ProfileData AutonomousDrivePastLowBar_100;
 
