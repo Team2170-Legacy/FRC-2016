@@ -75,6 +75,26 @@ Children:
           value: '2'
       Base: Analog Input
       Name: Max Sonar AI
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '3'
+      Base: CAN Talon
+      Name: CAN Talon Slave Right
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '4'
+      Base: CAN Talon
+      Name: CAN Talon Slave Left
     Properties:
       Default command parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []

@@ -19,6 +19,8 @@ std::shared_ptr<CANTalon> RobotMap::driveTrainCANTalonLeft;
 std::shared_ptr<RobotDrive> RobotMap::driveTrainRobotDrive;
 std::shared_ptr<AnalogGyro> RobotMap::driveTrainGyro;
 std::shared_ptr<AnalogInput> RobotMap::driveTrainMaxSonarAI;
+std::shared_ptr<CANTalon> RobotMap::driveTrainCANTalonSlaveRight;
+std::shared_ptr<CANTalon> RobotMap::driveTrainCANTalonSlaveLeft;
 std::shared_ptr<SpeedController> RobotMap::shooterElevationMotor;
 std::shared_ptr<SpeedController> RobotMap::shooterFlyWheelMotor;
 std::shared_ptr<SpeedController> RobotMap::shooterHookMotor;
@@ -55,6 +57,12 @@ void RobotMap::init() {
     driveTrainGyro->SetSensitivity(0.007);
     driveTrainMaxSonarAI.reset(new AnalogInput(2));
     lw->AddSensor("Drive Train", "Max Sonar AI", driveTrainMaxSonarAI);
+    
+    driveTrainCANTalonSlaveRight.reset(new CANTalon(3));
+    lw->AddActuator("Drive Train", "CAN Talon Slave Right", driveTrainCANTalonSlaveRight);
+    
+    driveTrainCANTalonSlaveLeft.reset(new CANTalon(4));
+    lw->AddActuator("Drive Train", "CAN Talon Slave Left", driveTrainCANTalonSlaveLeft);
     
     shooterElevationMotor.reset(new Talon(1));
     lw->AddActuator("Shooter", "Elevation Motor", std::static_pointer_cast<Talon>(shooterElevationMotor));
