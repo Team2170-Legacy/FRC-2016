@@ -76,3 +76,8 @@ AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* LeftWheel,
 void AutonomousMotionProfile::PeriodicTask() {
 	Robot::driveTrain->ServiceMotionProfile();
 }
+
+AutonomousMotionProfile::AutonomousMotionProfile(
+		const std::string ProfileName) : Command(),
+				talonService(AutonomousMotionProfile::PeriodicTask) {
+}
