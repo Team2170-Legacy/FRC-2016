@@ -10,6 +10,8 @@
 
 
 #include "AutonomousMotionProfile.h"
+#include <iostream>
+#include <fstream>
 
 
 AutonomousMotionProfile::AutonomousMotionProfile(): Command(),
@@ -78,6 +80,12 @@ void AutonomousMotionProfile::PeriodicTask() {
 }
 
 AutonomousMotionProfile::AutonomousMotionProfile(
-		const std::string ProfileName) : Command(),
+		const std::string& ProfileName) : Command(),
 				talonService(AutonomousMotionProfile::PeriodicTask) {
+
+	std::ifstream input(ProfileName.c_str());
+
+	while (input.good()) {
+
+	}
 }
