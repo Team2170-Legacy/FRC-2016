@@ -59,6 +59,7 @@ private:
 	const float kKickerStop = 0.0;
 
 	bool mShooterHomed = false;
+	Preferences* prefs = Preferences::GetInstance();
 
 public:
 	Shooter();
