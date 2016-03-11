@@ -12,7 +12,9 @@
 #include <signal.h>
 
 
-VisionEngine::VisionEngine() {
+VisionEngine::VisionEngine() :
+CAMERA_OFFSET_X(Preferences::GetInstance()->GetDouble("CameraOffsetX", 320.0)),
+CAMERA_OFFSET_Y(Preferences::GetInstance()->GetDouble("CameraOffsetY", 240.0)){
 	// TODO Auto-generated constructor stub
 	table = NetworkTable::GetTable("GRIP/myContoursReport");
 
@@ -111,7 +113,9 @@ void VisionEngine::ProcessContours() {
 	ContourList.sort(Contour::ScoreSort);
 
 	BestNewContour = ContourList.begin();
-	BestContour = *BestNewContour;
+
+	BestContour = SelectBestContour(*BestNewContour);
+
 }
 
 void VisionEngine::StartGRIP() {
@@ -192,6 +196,19 @@ float VisionEngine::CalculateScore(Contour&  c) {
 	return Score;
 }
 
+Contour VisionEngine::SelectBestContour(Contour& NewContour) {
+
+	if (NewContour > BestContour) {
+		return NewContour;
+	}
+	else if (fabs(NewContour - BestContour) < 0.1) {
+		return NewContour;
+	}
+	else {
+		return BestContour;
+	}
+}
+
 void VisionEngine::StopGRIP() {
 	if (pid != -1)
 	{
@@ -199,4 +216,11 @@ void VisionEngine::StopGRIP() {
 		pid = -1;
 		std::cout <<"GRIP stopped" <<std::endl;
 	}
+}
+
+double VisionEngine::ContourDistance(const Contour& a, const Contour& b) {
+	double dX = a.getCenterX() - b.getCenterX();
+	double dY = a.getCenterY() - b.getCenterY();
+
+	return sqrt((dX * dX) + (dY * dY));
 }

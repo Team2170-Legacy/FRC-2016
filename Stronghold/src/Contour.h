@@ -118,6 +118,10 @@ public:
 		return !(this->Score == r.Score);
 	}
 
+	double operator-(const Contour& r) {
+		return (this->Score - r.Score);
+	}
+
 };
 
 #endif /* SRC_CONTOUR_H_ */
