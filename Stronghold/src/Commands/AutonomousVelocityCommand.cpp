@@ -26,7 +26,7 @@ AutonomousVelocityCommand::AutonomousVelocityCommand(double Velocity): Command()
 
 // Called just before this Command runs the first time
 void AutonomousVelocityCommand::Initialize() {
-	Robot::driveTrain->SetVelocityMode();
+	Robot::driveTrain->SetChassisMode(CANTalon::ControlMode::kSpeed);
 	Robot::driveTrain->SetChassisVelocity(m_Velocity);
 }
 

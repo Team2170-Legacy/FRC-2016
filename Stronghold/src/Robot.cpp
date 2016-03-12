@@ -71,7 +71,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	Robot::driveTrain->SetMotionProfileMode();
+	Robot::driveTrain->SetChassisMode(CANTalon::ControlMode::kMotionProfile);
 
 	autonomousCommand.reset((Command *)chooser->GetSelected());
 
@@ -88,7 +88,7 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
-	Robot::driveTrain->SetVoltagePercentMode();
+	Robot::driveTrain->SetChassisMode(CANTalon::ControlMode::kPercentVbus);
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 }
