@@ -52,7 +52,7 @@ void Robot::RobotInit() {
 	chooser->AddObject("Auto Testing - Don't choose in match!!", new (AutonomousDefault));
 	SmartDashboard::PutData("Autonomous Modes", chooser);
 
-    ve.reset(new VisionEngine());
+    ve.reset(new VisionEngine);
 }
 
 /**

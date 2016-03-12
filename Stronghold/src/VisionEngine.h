@@ -44,6 +44,8 @@ public:
 	void StartGRIP();
 	void StopGRIP();
 
+	float GetElevationError(void);
+
 
 	double ConvertPixels(double pixels) {return pixels * kPixelConversion / 12.0;} //converts from pixels to feet
 };

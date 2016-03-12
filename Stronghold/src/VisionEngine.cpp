@@ -13,8 +13,8 @@
 
 
 VisionEngine::VisionEngine() :
-CAMERA_OFFSET_X(Preferences::GetInstance()->GetDouble("CameraOffsetX", 320.0)),
-CAMERA_OFFSET_Y(Preferences::GetInstance()->GetDouble("CameraOffsetY", 240.0)){
+CAMERA_OFFSET_X(Preferences::GetInstance()->GetDouble("CameraOffsetX", 240.0)),
+CAMERA_OFFSET_Y(Preferences::GetInstance()->GetDouble("CameraOffsetY", 320.0)){
 	// TODO Auto-generated constructor stub
 	table = NetworkTable::GetTable("GRIP/myContoursReport");
 
@@ -223,4 +223,8 @@ double VisionEngine::ContourDistance(const Contour& a, const Contour& b) {
 	double dY = a.getCenterY() - b.getCenterY();
 
 	return sqrt((dX * dX) + (dY * dY));
+}
+
+float VisionEngine::GetElevationError(void) {
+	return (CAMERA_OFFSET_Y - BestContour.getCenterY());
 }
