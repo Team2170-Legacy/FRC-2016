@@ -61,5 +61,6 @@ void ShooterRaise::Interrupted() {
 
 ShooterRaise::ShooterRaise(): Command() {
 	Requires(Robot::shooter.get());
+	m_displacement = 0.0;
 	m_AbsoluteCommand = false;
 }
