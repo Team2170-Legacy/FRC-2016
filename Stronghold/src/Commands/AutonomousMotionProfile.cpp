@@ -155,7 +155,6 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 
 		std::getline(input,token);
 		mLeftProfile.push_back(rowData);
-		printf("Point # %u\n", mLeftProfile.size());
 	}
 
 	printf("%s loaded %u points\n",
