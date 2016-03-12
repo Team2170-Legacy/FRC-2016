@@ -46,6 +46,14 @@ private:
 	void InitTalons(void);
 	void SetRampRate(double ramp);
 	void SetMotorGains();
+	//measured value
+	float Accel_Value_x;
+	float Accel_Value_y;
+	float Accel_Value_z;
+	//calibrated constant
+	float Accel_Center_x;
+	float Accel_Center_y;
+	float Accel_Center_z;
 
 	CANTalon::MotionProfileStatus LeftStatus;
 	CANTalon::MotionProfileStatus RightStatus;
@@ -106,6 +114,8 @@ public:
 	}
 
 	void SetVoltagePercentMode();
+	float GetChassisAngle();
+	void InitailizeChassisAngle();
 
 };
 
