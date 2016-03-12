@@ -100,6 +100,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		std::getline(input, token, ',');
 		rowData[2] = std::stod(token);
 
+		std::getline(input,token);
 		mLeftProfile.push_back(rowData);
 	}
 
@@ -117,6 +118,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		std::getline(input, token, ',');
 		rowData[2] = std::stod(token);
 
+		std::getline(input,token);
 		mRightProfile.push_back(rowData);
 	}
 
@@ -153,6 +155,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		std::getline(input, token, ',');
 		rowData[2] = std::stod(token);
 
+		//this line is to make sure to get rid of the \r
 		std::getline(input,token);
 		mLeftProfile.push_back(rowData);
 	}
