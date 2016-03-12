@@ -80,6 +80,8 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		const std::string& LProfileName, const std::string& RProfileName) :
 		Command(), talonService(AutonomousMotionProfile::PeriodicTask) {
 
+	Requires(Robot::driveTrain.get());
+
 	std::ifstream input(LProfileName.c_str());
 	std::string token;
 	std::array<double, 3> rowData;
@@ -131,6 +133,8 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		const std::string& ProfileName) : Command(),
 				talonService(AutonomousMotionProfile::PeriodicTask) {
 
+	Requires(Robot::driveTrain.get());
+
 	std::ifstream input(ProfileName.c_str());
 	std::string token;
 	std::array<double, 3> rowData;
@@ -140,8 +144,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 
 	mLeftWheel.reset(&mLeftProfile);
 	mRightWheel.reset();
-	printf("%s loaded %u points\n",
-				ProfileName.c_str(), mLeftProfile.size());
+
 	while (input.good()) {
 		std::getline(input, token, ',');
 		rowData[0] = std::stod(token);
@@ -152,6 +155,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 
 		std::getline(input,token);
 		mLeftProfile.push_back(rowData);
+		printf("Point # %u\n", mLeftProfile.size());
 	}
 
 	printf("%s loaded %u points\n",
