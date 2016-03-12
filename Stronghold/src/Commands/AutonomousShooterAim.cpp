@@ -46,7 +46,7 @@ bool AutonomousShooterAim::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonomousShooterAim::End() {
-
+	Robot::shooter->ShooterStop();
 }
 
 // Called when another command which requires one or more of the same

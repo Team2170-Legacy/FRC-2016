@@ -59,6 +59,7 @@ private:
 	const float kKickerStop = 0.0;
 
 	bool mShooterHomed = false;
+	Preferences* prefs = Preferences::GetInstance();
 
 public:
 	Shooter();
@@ -86,7 +87,7 @@ public:
 	void ShooterStop();
 	bool ShooterIsHome();
 	bool ShooterAtMax();
-	float GetShooterElevation();
+	int GetShooterElevation();
 
 	// Hook Manipulation public functions
 	void HookRaise();

@@ -50,7 +50,8 @@ void Shooter::InitDefaultCommand() {
 }
 
 void Shooter::FlyWheelReverse() {
-	flyWheelMotor->Set(-kFlyWheelReverseSpeed);
+	float speed = prefs->GetFloat("FlyWheelReverseSpeed", kFlyWheelReverseSpeed);
+	flyWheelMotor->Set(-speed);
 }
 
 void Shooter::FlyWheelStop() {
@@ -58,11 +59,13 @@ void Shooter::FlyWheelStop() {
 }
 
 void Shooter::FlyWheelHighSpeed() {
-	flyWheelMotor->Set(-kFlyWheelHighSpeed);
+	float speed = prefs->GetFloat("FlyWheelHighSpeed", kFlyWheelHighSpeed);
+	flyWheelMotor->Set(-speed);
 }
 
 void Shooter::FlyWheelLowSpeed() {
-	flyWheelMotor->Set(-kFlyWheelLowSpeed);
+	float speed = prefs->GetFloat("FlyWheelLowSpeed", kFlyWheelLowSpeed);
+	flyWheelMotor->Set(-speed);
 }
 
 void Shooter::KickerExtend() {
@@ -109,8 +112,8 @@ bool Shooter::ShooterAtMax() {
 	return elevationMax->Get();
 }
 
-float Shooter::GetShooterElevation() {
-	return elevationEncoder->GetDistance();
+int Shooter::GetShooterElevation() {
+	return elevationEncoder->GetRaw();
 }
 
 void Shooter::HookRaise() {
