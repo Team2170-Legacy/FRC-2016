@@ -140,7 +140,8 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 
 	mLeftWheel.reset(&mLeftProfile);
 	mRightWheel.reset();
-
+	printf("%s loaded %u points\n",
+				ProfileName.c_str(), mLeftProfile.size());
 	while (input.good()) {
 		std::getline(input, token, ',');
 		rowData[0] = std::stod(token);
@@ -149,6 +150,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		std::getline(input, token, ',');
 		rowData[2] = std::stod(token);
 
+		std::getline(input,token);
 		mLeftProfile.push_back(rowData);
 	}
 
