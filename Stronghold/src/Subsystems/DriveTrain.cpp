@@ -127,6 +127,8 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
  		bDriveStraight = false;
  		robotDrive->TankDrive(newLeft, newRight, true);
  	}
+    cANTalonSlaveRight->Set(2);
+    cANTalonSlaveLeft->Set(1);
 }
 
 double DriveTrain::AxisPower(double axis, double exponent) {
@@ -369,8 +371,10 @@ void DriveTrain::SetChassisMode(CANTalon::ControlMode mode) {
 
 void DriveTrain::InitTalons(void) {
     cANTalonSlaveLeft->SetControlMode(CANTalon::ControlMode::kFollower);
+    cANTalonSlaveLeft->SetSafetyEnabled(false);
     cANTalonSlaveLeft->Set(1);
     cANTalonSlaveRight->SetControlMode(CANTalon::ControlMode::kFollower);
+    cANTalonSlaveRight->SetSafetyEnabled(false);
     cANTalonSlaveRight->Set(2);
 
 	cANTalonLeft->ChangeMotionControlFramePeriod(5);
