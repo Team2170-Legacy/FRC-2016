@@ -38,6 +38,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     RoboAccels.reset(new BuiltInAccelerometer());
 
     InitTalons();
+    InitailizeChassisAngle();
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -110,13 +111,10 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
 
  	ProcessedLeft = DEADBAND(AxisPower(ProcessedLeft, fExponent), 0.15);
 
-
  	ProcessedRight = DEADBAND(AxisPower(ProcessedRight, fExponent), 0.15);
-
 
  	newLeft = fmax(fmin(ProcessedLeft + (Trigger * .8), 1.0), -1.0);
  	newRight = fmax(fmin(ProcessedRight + (Trigger * .8), 1.0), -1.0);
-
 
  	if ((ProcessedLeft == 0) && (ProcessedRight == 0)) {
  		if (!bDriveStraight || DEADBAND(Trigger, 0.15) == 0) {
@@ -129,6 +127,8 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
  		bDriveStraight = false;
  		robotDrive->TankDrive(newLeft, newRight, true);
  	}
+    cANTalonSlaveRight->Set(2);
+    cANTalonSlaveLeft->Set(1);
 }
 
 double DriveTrain::AxisPower(double axis, double exponent) {
@@ -371,8 +371,10 @@ void DriveTrain::SetChassisMode(CANTalon::ControlMode mode) {
 
 void DriveTrain::InitTalons(void) {
     cANTalonSlaveLeft->SetControlMode(CANTalon::ControlMode::kFollower);
+    cANTalonSlaveLeft->SetSafetyEnabled(false);
     cANTalonSlaveLeft->Set(1);
     cANTalonSlaveRight->SetControlMode(CANTalon::ControlMode::kFollower);
+    cANTalonSlaveRight->SetSafetyEnabled(false);
     cANTalonSlaveRight->Set(2);
 
 	cANTalonLeft->ChangeMotionControlFramePeriod(5);
@@ -407,4 +409,43 @@ void DriveTrain::SetRampRate(double ramp) {
 
 double DriveTrain::GetChassisPosition() {
 	return (cANTalonLeft->GetPosition() * InchesPerRotation);
+}
+
+float DriveTrain::GetChassisAngle() {
+	//returns y value
+	float x_val, y_val, z_val, result, accel_angle_y, accel_angle_x;
+	    float x2, y2, z2; //24 bit
+	    Accel_Value_x = RoboAccels->GetX();
+	    Accel_Value_y = RoboAccels->GetY();
+	    Accel_Value_z = RoboAccels->GetZ();
+
+	    // Lets get the deviations from our baseline
+	    x_val = Accel_Value_x-Accel_Center_x;
+	    y_val = Accel_Value_y-Accel_Center_y;
+	    z_val = Accel_Value_z-Accel_Center_z;
+
+	    // Work out the squares
+	    x2 = (x_val*x_val);
+	    y2 = (y_val*y_val);
+	    z2 = (z_val*z_val);
+
+	    //X Axis
+	    result=sqrt(y2+z2);
+	    result=x_val/result;
+	    accel_angle_x = atan(result);
+
+	    //Y Axis
+	    result=sqrt(x2+z2);
+	    result=y_val/result;
+	    accel_angle_y = atan(result);
+
+	    return accel_angle_y;
+
+}
+
+void DriveTrain::InitailizeChassisAngle() {
+	Accel_Center_x = RoboAccels->GetX();
+	Accel_Center_y = RoboAccels->GetY();
+	Accel_Center_z = RoboAccels->GetZ();
+
 }

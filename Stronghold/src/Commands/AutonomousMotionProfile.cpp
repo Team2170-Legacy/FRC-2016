@@ -10,6 +10,9 @@
 
 
 #include "AutonomousMotionProfile.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
 
 AutonomousMotionProfile::AutonomousMotionProfile(): Command(),
@@ -73,6 +76,90 @@ AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* LeftWheel,
 	mRightWheel.reset(RightWheel);
 }
 
+AutonomousMotionProfile::AutonomousMotionProfile(
+		const std::string& LProfileName, const std::string& RProfileName) :
+		Command(), talonService(AutonomousMotionProfile::PeriodicTask) {
+
+	Requires(Robot::driveTrain.get());
+
+	std::ifstream input(LProfileName.c_str());
+	std::string token;
+	std::array<double, 3> rowData;
+
+	mLeftProfile.clear();
+	mRightProfile.clear();
+
+	mLeftWheel.reset(&mLeftProfile);
+	mRightWheel.reset(&mRightProfile);
+
+	while (input.good()) {
+		std::getline(input, token, ',');
+		rowData[0] = std::stod(token);
+		std::getline(input, token, ',');
+		rowData[1] = std::stod(token);
+		std::getline(input, token, ',');
+		rowData[2] = std::stod(token);
+
+		std::getline(input,token);
+		mLeftProfile.push_back(rowData);
+	}
+
+	printf("%s loaded %u points\n",
+			LProfileName.c_str(), mLeftProfile.size());
+
+	input.close();
+	input.open(RProfileName.c_str());
+
+	while (input.good()) {
+		std::getline(input, token, ',');
+		rowData[0] = std::stod(token);
+		std::getline(input, token, ',');
+		rowData[1] = std::stod(token);
+		std::getline(input, token, ',');
+		rowData[2] = std::stod(token);
+
+		std::getline(input,token);
+		mRightProfile.push_back(rowData);
+	}
+
+	printf("%s loaded %u points\n",
+			RProfileName.c_str(), mRightProfile.size());
+}
+
+
 void AutonomousMotionProfile::PeriodicTask() {
 	Robot::driveTrain->ServiceMotionProfile();
+}
+
+AutonomousMotionProfile::AutonomousMotionProfile(
+		const std::string& ProfileName) : Command(),
+				talonService(AutonomousMotionProfile::PeriodicTask) {
+
+	Requires(Robot::driveTrain.get());
+
+	std::ifstream input(ProfileName.c_str());
+	std::string token;
+	std::array<double, 3> rowData;
+
+	mLeftProfile.clear();
+	mRightProfile.clear();
+
+	mLeftWheel.reset(&mLeftProfile);
+	mRightWheel.reset();
+
+	while (input.good()) {
+		std::getline(input, token, ',');
+		rowData[0] = std::stod(token);
+		std::getline(input, token, ',');
+		rowData[1] = std::stod(token);
+		std::getline(input, token, ',');
+		rowData[2] = std::stod(token);
+
+		//this line is to make sure to get rid of the \r
+		std::getline(input,token);
+		mLeftProfile.push_back(rowData);
+	}
+
+	printf("%s loaded %u points\n",
+			ProfileName.c_str(), mLeftProfile.size());
 }
