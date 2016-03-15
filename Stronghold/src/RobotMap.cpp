@@ -58,10 +58,10 @@ void RobotMap::init() {
     driveTrainMaxSonarAI.reset(new AnalogInput(2));
     lw->AddSensor("Drive Train", "Max Sonar AI", driveTrainMaxSonarAI);
     
-    driveTrainCANTalonSlaveRight.reset(new CANTalon(3));
+    driveTrainCANTalonSlaveRight.reset(new CANTalon(4));
     lw->AddActuator("Drive Train", "CAN Talon Slave Right", driveTrainCANTalonSlaveRight);
     
-    driveTrainCANTalonSlaveLeft.reset(new CANTalon(4));
+    driveTrainCANTalonSlaveLeft.reset(new CANTalon(3));
     lw->AddActuator("Drive Train", "CAN Talon Slave Left", driveTrainCANTalonSlaveLeft);
     
     shooterElevationMotor.reset(new Talon(1));
