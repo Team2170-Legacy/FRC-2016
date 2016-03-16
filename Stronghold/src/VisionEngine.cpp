@@ -38,7 +38,6 @@ void VisionEngine::ProcessContours() {
 			llvm::ArrayRef<double>());
 	std::vector<double> centerY = table->GetNumberArray("centerY",
 			llvm::ArrayRef<double>());
-	size_t contourCount = width.size();
 
 	AgeContourList();
 	ContourList.remove_if(Contour::ContourExpired);
@@ -46,13 +45,14 @@ void VisionEngine::ProcessContours() {
 	// remove "runts" from contour list
 	ContourList.remove_if(Contour::ContourIsRunt);
 
-	//Sort the contour list to find the best
-	ContourList.sort(Contour::ScoreSort);
+	if (!ContourList.empty()) {
+		//Sort the contour list to find the best
+		ContourList.sort(Contour::ScoreSort);
 
-	BestNewContour = ContourList.begin();
+		BestNewContour = ContourList.begin();
 
-	BestContour = SelectBestContour(*BestNewContour);
-
+		BestContour = SelectBestContour(*BestNewContour);
+	}
 }
 
 void VisionEngine::StartGRIP() {
