@@ -43,69 +43,6 @@ void VisionEngine::ProcessContours() {
 	AgeContourList();
 	ContourList.remove_if(Contour::ContourExpired);
 
-	std::cout << "Number of Contours : " << ContourList.size() << std::endl;
-
-	if (contourAge < kMaxContourAge) {
-		contourAge++;
-
-	} else {
-		contourAge = 0;
-		bestContour = 0;
-		bestContourX = 0.0, bestContourY = 0.0;
-		bestContourRatio = 0.0;
-		bestArea = 0.0;
-	}
-	if (contourCount > 0) {
-		for (size_t i = 0; i < contourCount; i++) {
-			double aspectRatio = width[i] / height[i];
-
-			Contour pContour(width[i], height[i], area[i], centerX[i], centerY[i]);
-			CalculateScore(pContour);
-			ContourList.push_front(pContour);
-
-			//std::cout << bestContourRatio << " : " << aspectRatio << std::endl;
-
-			if (ContourScore(aspectRatio) < ContourScore(bestContourRatio)) {
-//				std::cout << "Found better aspect ratio" << std::endl;
-				contourAge = 0;
-				bestContour = i;
-				bestContourRatio = aspectRatio;
-
-
-				bestContourX = centerX[i];
-				bestContourY = centerY[i];
-
-				bestWidth = ConvertPixels(width[i]);
-				bestHeight = ConvertPixels(height[i]);
-
-				bestArea = ConvertPixels(area[i]);
-
-				bestPerimeter = 2 * bestWidth + 2 * bestHeight;
-
-
-			}
-//NOT IN CARTESIAN
-//			std::cout << "Best Contour : " << bestContour + 1 << std::endl;
-//			std::cout << "Best Ratio : " << bestContourRatio << std::endl;
-//			std::cout << "Best Dimensions : " << bestWidth << " x " << bestHeight << std::endl;
-//			std::cout << "Best Perimeter : " << bestPerimeter << std::endl;
-//			std::cout << "Center : (" << bestContourX << ", "
-//					<< bestContourY << ")" << std::endl;
-			double distX = 319 - bestContourX + CAMERA_OFFSET_X;
-			double distY = 239 - bestContourY + CAMERA_OFFSET_Y;
-
-			distX = ConvertPixels(distX);
-			distY = ConvertPixels(distY);
-
-//			std::cout << "Move : (" << distX << ", " << distY << ")" << std::endl
-//					<< std::endl;
-//			std::cout << "Best Area : " << bestArea << std::endl;
-
-		}
-	} else {
-		std::cout << "No contour" << std::endl;
-	}
-
 	// remove "runts" from contour list
 	ContourList.remove_if(Contour::ContourIsRunt);
 
