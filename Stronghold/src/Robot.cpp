@@ -57,6 +57,7 @@ void Robot::RobotInit() {
 	chooser->AddObject("Auto Testing - Don't choose in match!!", new (AutonomousDefault));
 	SmartDashboard::PutData("Autonomous Modes", chooser);
 
+	ve.reset(new VisionEngine());
   }
 
 /**
@@ -69,6 +70,7 @@ void Robot::DisabledInit(){
 
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
+	Robot::ve->ProcessContours();
 }
 
 void Robot::AutonomousInit() {

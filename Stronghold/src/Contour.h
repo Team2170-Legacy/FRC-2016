@@ -98,15 +98,15 @@ public:
 		return(this->Score < r.Score);
 	}
 
-	inline bool operator>(const Contour& r) {
-		return(r.Score > this->Score);
+	bool operator>(const Contour& r) {
+		return(r.Score < this->Score);
 	}
 
-	inline bool operator<=(const Contour& r) {
+	bool operator<=(const Contour& r) {
 		return !(this->Score > r.Score);
 	}
 
-	inline bool operator>=(const Contour& r) {
+	bool operator>=(const Contour& r) {
 		return !(this->Score < r.Score);
 	}
 
@@ -114,7 +114,7 @@ public:
 		return(this->Score == r.Score);
 	}
 
-	inline bool operator!=(const Contour& r) {
+	bool operator!=(const Contour& r) {
 		return !(this->Score == r.Score);
 	}
 
