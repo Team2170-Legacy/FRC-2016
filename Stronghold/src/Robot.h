@@ -47,5 +47,9 @@ public:
 
 	//need this for chooser to work
 	SendableChooser *chooser;
+private:
+	Notifier AccelService;
+	static void UpdateAccel();
+
 };
 #endif
