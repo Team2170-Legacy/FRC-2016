@@ -50,5 +50,9 @@ public:
 
 	//need this for chooser to work
 	SendableChooser *chooser;
+private:
+	static Notifier VisionService;
+	static void UpdateVision();
+
 };
 #endif
