@@ -75,7 +75,6 @@ void Robot::DisabledInit(){
 
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
-	Robot::ve->ProcessContours();
 }
 
 void Robot::AutonomousInit() {
