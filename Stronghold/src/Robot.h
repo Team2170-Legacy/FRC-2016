@@ -51,8 +51,10 @@ public:
 	//need this for chooser to work
 	SendableChooser *chooser;
 private:
-	static Notifier VisionService;
+	std::shared_ptr<Notifier> VisionService;
 	static void UpdateVision();
+	std::shared_ptr<Notifier> AccelService;
+	static void UpdateAccel();
 
 };
 #endif
