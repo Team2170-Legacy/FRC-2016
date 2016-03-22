@@ -38,6 +38,18 @@ void VisionEngine::ProcessContours() {
 			llvm::ArrayRef<double>());
 	std::vector<double> centerY = table->GetNumberArray("centerY",
 			llvm::ArrayRef<double>());
+	size_t contourCount = width.size();
+
+	AgeContourList();
+	ContourList.remove_if(Contour::ContourExpired);
+
+	if (contourCount > 0) {
+		for (size_t i = 0; i < contourCount; i++) {
+			Contour pContour(width[i], height[i], area[i], centerX[i], centerY[i]);
+			CalculateScore(pContour);
+			ContourList.push_front(pContour);
+		}
+	}
 
 	AgeContourList();
 	ContourList.remove_if(Contour::ContourExpired);
@@ -58,7 +70,7 @@ void VisionEngine::ProcessContours() {
 void VisionEngine::StartGRIP() {
 	/* GRIP is now run on a co-processor */
     if (fork() == 0) {
-    system("ssh ubuntu@wandboard.local '/home/ubuntu/vision/start_grip_remote.sh &'");
+    system("ssh ubuntu@wandboard.local '/home/ubuntu/vision/start_grip_remote.sh'");
     exit(0);
     }
 }
@@ -71,7 +83,7 @@ void VisionEngine::AgeContourList() {
 	std::list<Contour>::iterator cIt;
 	for (cIt = ContourList.begin(); cIt != ContourList.end(); ++cIt) {
 		cIt->IncrementAge();
-		cIt->setScore(cIt->getScore() - 0.1);		// Decrement score by 0.1 each birthday
+		cIt->setScore(cIt->getScore() - 0.25);		// Decrement score by 0.1 each birthday
 	}
 }
 
