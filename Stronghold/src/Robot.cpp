@@ -61,8 +61,8 @@ void Robot::RobotInit() {
 	AccelService.reset(new Notifier(Robot::UpdateAccel));
 	AccelService->StartPeriodic(0.05);
 
+	ve.reset(new VisionEngine());
 	if (Preferences::GetInstance()->GetBoolean("EnableVision", false)) {
-		ve.reset(new VisionEngine());
 		ve->StartGRIP();
 		VisionService.reset(new Notifier(Robot::UpdateVision));
 		VisionService->StartPeriodic(0.1);
