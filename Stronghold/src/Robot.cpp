@@ -59,10 +59,12 @@ void Robot::RobotInit() {
 	SmartDashboard::PutData("Autonomous Modes", chooser);
 
 	AccelService.reset(new Notifier(Robot::UpdateAccel));
-	Robot::AccelService->StartPeriodic(0.05);
+	AccelService->StartPeriodic(0.05);
 
 	ve.reset(new VisionEngine());
+	ve->StartGRIP();
 	VisionService.reset(new Notifier(Robot::UpdateVision));
+	VisionService->StartPeriodic(0.1);
   }
 
 /**
