@@ -37,6 +37,8 @@ void AutonomousShooterAim::Execute() {
 	float TargetError = Robot::ve->GetElevationError();
 	float AimCommand = TargetError * m_ElevationGain;
 
+	SmartDashboard::PutNumber("TargetError", TargetError);
+	SmartDashboard::PutNumber("OnTargetCount", m_OnTargetCount);
 	if ((TargetError < m_TargetTolerance) &&
 			(TargetError > -m_TargetTolerance)) {
 		m_OnTargetCount++;

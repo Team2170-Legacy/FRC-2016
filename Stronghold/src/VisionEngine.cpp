@@ -58,7 +58,8 @@ void VisionEngine::ProcessContours() {
 void VisionEngine::StartGRIP() {
 	/* GRIP is now run on a co-processor */
     if (fork() == 0) {
-        system("ssh ubuntu@wandboard.local '/home/ubuntu/vision/start_grip_remote.sh'");
+    system("ssh ubuntu@wandboard.local '/home/ubuntu/vision/start_grip_remote.sh &'");
+    exit(0);
     }
 }
 
