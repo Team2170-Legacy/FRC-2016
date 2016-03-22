@@ -27,6 +27,7 @@ private:
 	std::shared_ptr<JoystickButton> shooterCollectBall;
 	std::shared_ptr<JoystickButton> shootHigh;
 	std::shared_ptr<Joystick> driveJoystick;
+	std::shared_ptr<JoystickButton> buttonB;
 	std::shared_ptr<JoystickButton> leftBumper;
 	std::shared_ptr<JoystickButton> rightBumper;
 
