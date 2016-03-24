@@ -29,12 +29,14 @@ private:
 	const unsigned short int kCountsPerRev = 360;	// 360 count encoder, x4 sampling
 	const double kDefaultVoltageRamp = 36.0;		// 100% in 0.375 seconds
 	float mAutoVelocity = 0.5;
-	float mYawGain = -0.15;
+	float mYawGain = -0.10;
 	bool bDriveStraight = false;
 
 	bool mMotionProcessingActive = false;
 
-	const double kPorportionalGain = 0.75;
+	Preferences *prefs;
+
+	const double kProportionalGain = 0.75;
 	const double kDerivativeGain = 2.5;
 	const double kFeedForwardGain = 0.75;
 

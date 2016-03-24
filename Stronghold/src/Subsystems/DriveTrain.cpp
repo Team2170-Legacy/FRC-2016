@@ -41,6 +41,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
     FrontSonar.reset(new MaxSonarEZ1(maxSonarAI));
     DriveTrain::RoboAccels.reset(new BuiltInAccelerometer());
 
+    prefs = Preferences::GetInstance();
     InitTalons();
 }
 
@@ -313,12 +314,12 @@ void DriveTrain::SetMotionProfileState(CANTalon::SetValueMotionProfile mode) {
 void DriveTrain::SetMotorGains() {
 
 	cANTalonLeft->SelectProfileSlot(0);
-//	cANTalonLeft->SetP(kPorportionalGain);
+//	cANTalonLeft->SetP(kProportionalGain);
 //	cANTalonLeft->SetD(kDerivativeGain);
 //	cANTalonLeft->SetF(kFeedForwardGain);
 
 	cANTalonRight->SelectProfileSlot(0);
-//	cANTalonRight->SetP(kPorportionalGain);
+//	cANTalonRight->SetP(kProportionalGain);
 //	cANTalonRight->SetD(kDerivativeGain);
 //	cANTalonRight->SetF(kFeedForwardGain);
 
@@ -392,8 +393,8 @@ void DriveTrain::InitTalons(void) {
 	cANTalonRight->SetFeedbackDevice(CANTalon::QuadEncoder);
 	cANTalonRight->ConfigEncoderCodesPerRev(kCountsPerRev);
 
-	cANTalonLeft->SetSensorDirection(true);
-	cANTalonRight->SetSensorDirection(true);
+	cANTalonLeft->SetSensorDirection(prefs->GetBoolean("SensorDirection", true));
+	cANTalonRight->SetSensorDirection(prefs->GetBoolean("SensorDirection", true));
 
 	SetMotorGains();
 	SetBrakeMode(CANTalon::NeutralMode::kNeutralMode_Brake);
