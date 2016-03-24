@@ -132,7 +132,7 @@ void DriveTrain::TankDriveWithTriggers(float Left, float Right, float Trigger) {
  	}
     cANTalonSlaveRight->Set(2);
     cANTalonSlaveLeft->Set(1);
-    SmartDashboard::PutNumber("Chassis Angle", (double)GetChassisAngle());
+    SmartDashboard::PutNumber("Chassis Pitch", (double)GetChassisPitch());
 }
 
 double DriveTrain::AxisPower(double axis, double exponent) {
@@ -415,7 +415,7 @@ double DriveTrain::GetChassisPosition() {
 	return (cANTalonLeft->GetPosition() * InchesPerRotation);
 }
 
-void DriveTrain::UpdateChassisAngle() {
+void DriveTrain::UpdateChassisPitch() {
 	//	Algorithm from Freescale document AN3461
 	float result;
 	float x2, y2, z2; //24 bit
@@ -448,9 +448,9 @@ void DriveTrain::UpdateChassisAngle() {
 	if (AvgY < 0) {
 		accel_angle_y = -accel_angle_y;
 	}
-	chassis_angle =  accel_angle_y;
+	chassis_pitch =  accel_angle_y;
 }
 
-float DriveTrain::GetChassisAngle() {
-	return DriveTrain::chassis_angle * 360.0 / (M_PI * 2.0);
+float DriveTrain::GetChassisPitch() {
+	return DriveTrain::chassis_pitch * 360.0 / (M_PI * 2.0);
 }

@@ -49,7 +49,7 @@ private:
 
 	float accel_angle_x;
 	float accel_angle_y;
-	float chassis_angle = 0.0;
+	float chassis_pitch = 0.0;
 
 	CANTalon::MotionProfileStatus LeftStatus;
 	CANTalon::MotionProfileStatus RightStatus;
@@ -87,8 +87,8 @@ public:
 	CANTalon::ControlMode GetChassisMode();
 	void SetChassisMode(CANTalon::ControlMode mode);
 	double GetChassisPosition();
-	void UpdateChassisAngle();
-	float GetChassisAngle();
+	void UpdateChassisPitch();
+	float GetChassisPitch();
 
 	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
 	void TankDriveWithTriggers(float Left, float Right, float Trigger);

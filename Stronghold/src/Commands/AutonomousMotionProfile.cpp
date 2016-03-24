@@ -28,14 +28,20 @@ AutonomousMotionProfile::AutonomousMotionProfile(): Command(),
 
 // Called just before this Command runs the first time
 void AutonomousMotionProfile::Initialize() {
+	Robot::driveTrain->SetChassisMode(CANTalon::ControlMode::kMotionProfile);
+
+	if (bResetGyro) {
+		Robot::driveTrain->ResetChassisYaw();
+	}
+
 	if (mRightWheel) {
 		Robot::driveTrain->FillProfileBuffer(mLeftWheel, mRightWheel);
 	}
 	else {
 		Robot::driveTrain->FillProfileBuffer(mLeftWheel);
 	}
+
 	talonService.StartPeriodic(0.005);
-//	SetTimeout(mLeftWheel->);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -52,36 +58,40 @@ bool AutonomousMotionProfile::IsFinished() {
 void AutonomousMotionProfile::End() {
 	talonService.Stop();
 	Robot::driveTrain->SetMotionProfileState(CANTalon::SetValueMotionProfileHold);
+	Robot::driveTrain->SetChassisMode(CANTalon::ControlMode::kPercentVbus);
 }
 
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonomousMotionProfile::Interrupted() {
-
+	End();
 }
 
-AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* LeftWheel) : Command(),
+AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* LeftWheel, bool ResetGyro) : Command(),
 		talonService(AutonomousMotionProfile::PeriodicTask){
 	Requires(Robot::driveTrain.get());
+	bResetGyro = ResetGyro;
 	mLeftWheel.reset(LeftWheel);
 	mRightWheel.reset();
 }
 
 AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* LeftWheel,
-		const ProfileData* RightWheel) : Command(),
+		const ProfileData* RightWheel, bool ResetGyro) : Command(),
 				talonService(AutonomousMotionProfile::PeriodicTask) {
 	Requires(Robot::driveTrain.get());
+	bResetGyro = ResetGyro;
 	mLeftWheel.reset(LeftWheel);
 	mRightWheel.reset(RightWheel);
 }
 
 AutonomousMotionProfile::AutonomousMotionProfile(
-		const std::string& LProfileName, const std::string& RProfileName) :
+		const std::string& LProfileName, const std::string& RProfileName, bool ResetGyro) :
 		Command(), talonService(AutonomousMotionProfile::PeriodicTask) {
 
 	Requires(Robot::driveTrain.get());
 
+	bResetGyro = ResetGyro;
 	std::ifstream input(LProfileName.c_str());
 	std::string token;
 	std::array<double, 3> rowData;
@@ -132,11 +142,12 @@ void AutonomousMotionProfile::PeriodicTask() {
 }
 
 AutonomousMotionProfile::AutonomousMotionProfile(
-		const std::string& ProfileName) : Command(),
+		const std::string& ProfileName, bool ResetGyro) : Command(),
 				talonService(AutonomousMotionProfile::PeriodicTask) {
 
 	Requires(Robot::driveTrain.get());
 
+	bResetGyro = ResetGyro;
 	std::ifstream input(ProfileName.c_str());
 	std::string token;
 	std::array<double, 3> rowData;

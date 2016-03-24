@@ -113,7 +113,7 @@ void Robot::TestPeriodic() {
 }
 
 void Robot::UpdateAccel() {
-	Robot::driveTrain->UpdateChassisAngle();
+	Robot::driveTrain->UpdateChassisPitch();
 }
 
 START_ROBOT_CLASS(Robot);

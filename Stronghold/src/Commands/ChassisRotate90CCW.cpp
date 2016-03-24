@@ -40,6 +40,6 @@ ChassisRotate90CCW::ChassisRotate90CCW() {
 
 	AddSequential(new ChassisSetMode(CANTalon::ControlMode::kMotionProfile));
 	AddSequential(new AutonomousMotionProfile(&Rotate90CounterClockwise, &Rotate90Clockwise));
-	AddSequential(new ChassisSetMode(CANTalon::ControlMode::kVoltage));
+	AddSequential(new ChassisSetMode(CANTalon::ControlMode::kPercentVbus));
 
 }

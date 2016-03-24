@@ -58,6 +58,10 @@ private:
 	const float kKickerRetractSpeed = -0.3;
 	const float kKickerStop = 0.0;
 
+	float kShooterLength;
+	float kArmLength;
+	float kCountsPerInch;
+
 	bool mShooterHomed = false;
 	Preferences* prefs = Preferences::GetInstance();
 
