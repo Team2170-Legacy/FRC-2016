@@ -84,6 +84,7 @@ void Robot::DisabledPeriodic() {
 void Robot::AutonomousInit() {
 	Robot::driveTrain->SetChassisMode(CANTalon::ControlMode::kMotionProfile);
 
+	autonomousCommand.release();
 	autonomousCommand.reset((Command *)chooser->GetSelected());
 
 	if (autonomousCommand.get() != nullptr)
