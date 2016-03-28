@@ -91,7 +91,7 @@ public:
 	void ShooterStop();
 	bool ShooterIsHome();
 	bool ShooterAtMax();
-	int GetShooterElevation();
+	float GetShooterElevation();
 
 	// Hook Manipulation public functions
 	void HookRaise();

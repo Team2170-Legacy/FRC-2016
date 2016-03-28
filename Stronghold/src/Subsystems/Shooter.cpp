@@ -115,7 +115,7 @@ bool Shooter::ShooterAtMax() {
 	return elevationMax->Get();
 }
 
-int Shooter::GetShooterElevation() {
+float Shooter::GetShooterElevation() {
 	// cos(A) = b^2 + c^2 - a^2 / 2ab
 	float raw = elevationEncoder->GetRaw();		// c
 	float angle = (kShooterLength * kShooterLength) + (raw * raw);		// b^2 + c^2

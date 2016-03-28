@@ -12,8 +12,9 @@
 #include "ShooterLower.h"
 
 
-ShooterLower::ShooterLower(int displacement): Command() {
+ShooterLower::ShooterLower(float displacement): Command() {
     m_displacement = displacement;
+    m_AbsoluteCommand = true;
         // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
 	Requires(Robot::shooter.get());
