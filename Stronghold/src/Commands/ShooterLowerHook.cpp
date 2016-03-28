@@ -35,7 +35,7 @@ void ShooterLowerHook::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ShooterLowerHook::IsFinished() {
-    return Robot::climber->HookIsHome();
+    return Robot::climber->HookAtRearMax();
 }
 
 // Called once after isFinished returns true
