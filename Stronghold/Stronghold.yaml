@@ -146,22 +146,6 @@ Children:
       Name: Fly Wheel Motor
     - Children: []
       Properties:
-        Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id003
-          default: Talon
-          name: Type
-          validators: null
-          value: Talon
-        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id004
-          default: '0'
-          name: Output Channel (PWM)
-          validators: *id005
-          value: '3'
-      Base: Speed Controller
-      Name: Hook Motor
-    - Children: []
-      Properties:
         Channel A Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
@@ -220,26 +204,6 @@ Children:
       Name: Elevation Max
     - Children: []
       Properties:
-        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id006
-          default: '0'
-          name: Input Channel (Digital)
-          validators: *id007
-          value: '5'
-      Base: Limit Switch
-      Name: Hook Home
-    - Children: []
-      Properties:
-        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id006
-          default: '0'
-          name: Input Channel (Digital)
-          validators: *id007
-          value: '6'
-      Base: Limit Switch
-      Name: Hook Max
-    - Children: []
-      Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id003
           default: Talon
@@ -264,18 +228,6 @@ Children:
           value: '4'
       Base: Limit Switch
       Name: Ball Kick Sensor
-    - Children: []
-      Properties:
-        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
-            '24', '25']
-          default: '0'
-          name: Input Channel (Digital)
-          validators: [DigitalChannel]
-          value: '7'
-      Base: Digital Input
-      Name: Hook Rear Max
     Properties:
       Default command parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
@@ -291,6 +243,70 @@ Children:
         value: *id008
     Base: Subsystem
     Name: Shooter
+  - Children:
+    - Children: []
+      Properties:
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id003
+          default: Talon
+          name: Type
+          validators: null
+          value: Talon
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id004
+          default: '0'
+          name: Output Channel (PWM)
+          validators: *id005
+          value: '3'
+      Base: Speed Controller
+      Name: Hook Motor
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
+            '24', '25']
+          default: '0'
+          name: Input Channel (Digital)
+          validators: [DigitalChannel]
+          value: '7'
+      Base: Digital Input
+      Name: Hook Rear Max
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id006
+          default: '0'
+          name: Input Channel (Digital)
+          validators: *id007
+          value: '6'
+      Base: Limit Switch
+      Name: Hook Max
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id006
+          default: '0'
+          name: Input Channel (Digital)
+          validators: *id007
+          value: '5'
+      Base: Limit Switch
+      Name: Hook Home
+    Properties:
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value: []
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: None}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: Climber
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -1076,7 +1092,7 @@ Children:
         validators: null
         value: []
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Shooter}
+        name: Requires, type: Subsystem, validators: null, value: Climber}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
@@ -1094,7 +1110,7 @@ Children:
         validators: null
         value: []
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Shooter}
+        name: Requires, type: Subsystem, validators: null, value: Climber}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
@@ -1456,9 +1472,9 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\nollchr\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\GEH-Magnet
-      School 1\git\FRC-2016'}
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GEH-Magnet
+      School 1\workspace', extension: null, folder: true, name: Eclipse Workspace,
+    validators: null, value: 'C:\Users\GEH-Magnet School 1\git\FRC-2016'}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -1476,9 +1492,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\nollchr\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\GEH-Magnet
-      School 1\Documents'}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GEH-Magnet
+      School 1\', extension: null, folder: true, name: Wiring file location, validators: null,
+    value: 'C:\Users\GEH-Magnet School 1\Documents'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Default}
 Base: Robot
