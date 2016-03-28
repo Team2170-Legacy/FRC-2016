@@ -63,5 +63,5 @@ bool Climber::HookAtMax() {
 }
 
 bool Climber::HookAtRearMax() {
-	return hookMax->Get();
+	return hookRearMax->Get();
 }
