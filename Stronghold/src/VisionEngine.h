@@ -22,13 +22,13 @@ private:
 
 	const double kIdealAspectRatio = 1.6;
 	const double kIdealAreaRatio = 0.3;		// tape uses 30% of volume described by 12x20 polygon
-
+	const float kScoreAgeFactor = 0.1;
 	std::list<Contour>::iterator BestNewContour;
 	Contour BestContour;
 
-	double ContourScore(double aspect);
 	float CalculateScore(Contour& c);
 	void AgeContourList();
+	void AgeContour(Contour& c);
 	double ContourDistance(const Contour& x, const Contour& y);
 	Contour SelectBestContour(Contour& NewContour);
 
@@ -40,6 +40,7 @@ public:
 	void StopGRIP();
 
 	float GetElevationError(void);
+	float GetHorizonatlError(void);
 
 };
 

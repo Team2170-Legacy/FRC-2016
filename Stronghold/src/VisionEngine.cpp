@@ -63,6 +63,9 @@ void VisionEngine::ProcessContours() {
 
 		BestNewContour = ContourList.begin();
 
+		// Age current best contour
+		AgeContour(BestContour);
+
 		BestContour = SelectBestContour(*BestNewContour);
 	}
 }
@@ -70,20 +73,18 @@ void VisionEngine::ProcessContours() {
 void VisionEngine::StartGRIP() {
 	/* GRIP is now run on a co-processor */
     if (fork() == 0) {
-    system("ssh ubuntu@wandboard.local '/home/ubuntu/vision/start_grip_remote.sh'");
+    system("ssh -q ubuntu@wandboard.local '/home/ubuntu/vision/start_grip_remote.sh'");
     exit(0);
     }
 }
 
-double VisionEngine::ContourScore(double aspect) {
-	return fabs(kIdealAspectRatio - aspect);
-}
 
 void VisionEngine::AgeContourList() {
 	std::list<Contour>::iterator cIt;
 	for (cIt = ContourList.begin(); cIt != ContourList.end(); ++cIt) {
+		AgeContour(*cIt);
 		cIt->IncrementAge();
-		cIt->setScore(cIt->getScore() - 0.25);		// Decrement score by 0.1 each birthday
+		cIt->setScore(cIt->getScore() - 0.1);		// Decrement score by 0.1 each birthday
 	}
 }
 
@@ -178,6 +179,15 @@ double VisionEngine::ContourDistance(const Contour& a, const Contour& b) {
 	return sqrt((dX * dX) + (dY * dY));
 }
 
+void VisionEngine::AgeContour(Contour& c) {
+	c.IncrementAge();
+	c.setScore(c.getScore() - kScoreAgeFactor);
+}
+
 float VisionEngine::GetElevationError(void) {
 	return (CAMERA_OFFSET_Y - BestContour.getCenterY());
+}
+
+float VisionEngine::GetHorizonatlError(void) {
+	return (CAMERA_OFFSET_X - BestContour.getCenterX());
 }
