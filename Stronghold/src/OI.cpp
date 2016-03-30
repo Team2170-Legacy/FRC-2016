@@ -15,6 +15,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/ArcadeDriveTeleop.h"
 #include "Commands/AutonomousAimandShoot.h"
+#include "Commands/AutonomousChassisAim.h"
 #include "Commands/AutonomousClimbTower.h"
 #include "Commands/AutonomousCollectBall.h"
 #include "Commands/AutonomousDefault.h"

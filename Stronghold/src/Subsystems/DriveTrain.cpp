@@ -174,12 +174,12 @@ float DriveTrain::ReadChassisDistance() {
 	return(FrontSonar->GetRangeInches());
 }
 
-void DriveTrain::Rotate(float position) {
-	if ((cANTalonLeft->GetControlMode() == CANTalon::ControlMode::kPosition)
+void DriveTrain::Rotate(float velocity) {
+	if ((cANTalonLeft->GetControlMode() == CANTalon::ControlMode::kSpeed)
 			&& (cANTalonRight->GetControlMode()
-					== CANTalon::ControlMode::kPosition)) {
-		cANTalonLeft->Set(position);
-		cANTalonRight->Set(position);
+					== CANTalon::ControlMode::kSpeed)) {
+		cANTalonLeft->Set(velocity);
+		cANTalonRight->Set(velocity);
 	}
 }
 
