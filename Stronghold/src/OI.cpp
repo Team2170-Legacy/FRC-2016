@@ -34,6 +34,7 @@
 #include "Commands/AutonomousShooterAim.h"
 #include "Commands/AutonomousVelocityCommand.h"
 #include "Commands/AutoonomousFireBoulderHigh.h"
+#include "Commands/ChassisCorrectYaw.h"
 #include "Commands/ChassisHoldPosition.h"
 #include "Commands/ChassisRotate180CCW.h"
 #include "Commands/ChassisRotate180CW.h"
