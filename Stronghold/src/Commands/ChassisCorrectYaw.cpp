@@ -32,12 +32,14 @@ void ChassisCorrectYaw::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ChassisCorrectYaw::Execute() {
+	float error = Robot::driveTrain->ReadChassisYaw();
 
+	Robot::driveTrain->Rotate(kYawGain * error);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ChassisCorrectYaw::IsFinished() {
-    return (Robot::driveTrain->ReadChassisYaw() > kStopPosition);
+    return (fabs(Robot::driveTrain->ReadChassisYaw()) < kStopPosition);
 }
 
 // Called once after isFinished returns true
