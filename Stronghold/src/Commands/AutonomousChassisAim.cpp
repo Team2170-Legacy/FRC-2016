@@ -53,6 +53,7 @@ bool AutonomousChassisAim::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonomousChassisAim::End() {
+	Robot::driveTrain->Rotate(0.0);
 	Robot::driveTrain->SetChassisMode(CANTalon::ControlMode::kPercentVbus);
 }
 
