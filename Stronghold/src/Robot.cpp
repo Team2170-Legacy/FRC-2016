@@ -54,8 +54,8 @@ void Robot::RobotInit() {
 	//Adds a sendable chooser to choose between AutonomousDriveToScore and AutonomousPickupAndScore
 	chooser = new SendableChooser();
 	chooser->AddObject("Drive To Defense", new (AutonomousDriveToDefense));
-	chooser->AddObject("Do Nothing", new (AutonomousDoNothing));
-	chooser->AddDefault("Drive Through LowBar", new (AutonomousDriveThroughLowBar));
+	chooser->AddDefault("Do Nothing", new (AutonomousDoNothing));
+	chooser->AddObject("Drive Through LowBar", new (AutonomousDriveThroughLowBar));
 	chooser->AddObject("Drive Through LowBar Shoot Low", new (AutonomousDriveLowBarShootLow));
 	chooser->AddObject("Drive Through LowBar Shoot High", new (AutonomousDriveLowShootHigh));
 	chooser->AddObject("Auto Testing - Don't choose in match!!", new (AutonomousDefault));
