@@ -137,6 +137,7 @@ void Shooter::ShooterAim(float ElevationCmd) {
 		ElevationCmd = 0.0;
 	}
 
+	SmartDashboard::PutNumber("Elevation", GetShooterElevation());
 	elevationMotor->Set(-ElevationCmd);
 }
 

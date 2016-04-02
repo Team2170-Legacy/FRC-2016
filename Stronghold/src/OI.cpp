@@ -92,7 +92,7 @@ OI::OI() {
     leftBumper.reset(new JoystickButton(driveJoystick.get(), 5));
     leftBumper->WhenPressed(new ChassisRotate90CCW());
     rightBumper.reset(new JoystickButton(driveJoystick.get(), 6));
-    rightBumper->WhenPressed(new ChassisRotate90CW());
+    rightBumper->WhileHeld(new ShooterFlywheelReverse());
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("Chassis Hold Position", new ChassisHoldPosition());

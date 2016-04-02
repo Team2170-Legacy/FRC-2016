@@ -334,13 +334,13 @@ Children:
           name: Command
           type: Command
           validators: &id010 [TypeDropdownSelected]
-          value: Chassis Rotate 90 CW
+          value: Shooter Flywheel Reverse
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id011 [whileHeld, whenPressed, whenReleased]
           default: whileHeld
           name: When to Run
           validators: null
-          value: whenPressed
+          value: whileHeld
       Base: Joystick Button
       Name: Right Bumper
     - Children: []
@@ -1559,15 +1559,15 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id015 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id015
+        value: []
       Commands: !!robotbuilder.data.properties.ListProperty
-        default: &id016 []
+        default: []
         name: Commands
         validators: *id014
-        value: *id016
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command Group

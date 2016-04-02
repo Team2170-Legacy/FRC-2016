@@ -27,7 +27,7 @@
 class DriveTrain: public Subsystem {
 private:
 	const unsigned short int kCountsPerRev = 360;	// 360 count encoder, x4 sampling
-	const double kDefaultVoltageRamp = 36.0;		// 100% in 0.375 seconds
+	const double kDefaultVoltageRamp;
 	float mAutoVelocity = 0.5;
 	float mYawGain = -0.10;
 	bool bDriveStraight = false;
