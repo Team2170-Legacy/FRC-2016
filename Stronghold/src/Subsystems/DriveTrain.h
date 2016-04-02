@@ -94,6 +94,7 @@ public:
 
 	void ArcadeDriveWithJoysticks(float moveVal, float rotateVal);
 	void TankDriveWithTriggers(float Left, float Right, float Trigger);
+	void TankDrive(float Left, float Right);
 	void DriveStraight(bool Backwards = false);
 	void DriveStraight(float magnitude);
 

@@ -16,7 +16,6 @@
 #include "Commands/ArcadeDriveTeleop.h"
 #include "Commands/AutonomousAimandShoot.h"
 #include "Commands/AutonomousChassisAim.h"
-#include "Commands/AutonomousClimbTower.h"
 #include "Commands/AutonomousCollectBall.h"
 #include "Commands/AutonomousDefault.h"
 #include "Commands/AutonomousDoNothing.h"
@@ -36,6 +35,7 @@
 #include "Commands/AutonomousVelocityCommand.h"
 #include "Commands/AutoonomousFireBoulderHigh.h"
 #include "Commands/ChassisCorrectYaw.h"
+#include "Commands/ChassisDriveStraight.h"
 #include "Commands/ChassisHoldPosition.h"
 #include "Commands/ChassisRotate180CCW.h"
 #include "Commands/ChassisRotate180CW.h"
@@ -90,11 +90,13 @@ OI::OI() {
     buttonB.reset(new JoystickButton(driveJoystick.get(), 2));
     buttonB->WhileHeld(new ChassisHoldPosition());
     leftBumper.reset(new JoystickButton(driveJoystick.get(), 5));
-    leftBumper->WhenPressed(new ChassisRotate90CCW());
+    leftBumper->WhileHeld(new ShooterFlywheelReverse());
     rightBumper.reset(new JoystickButton(driveJoystick.get(), 6));
     rightBumper->WhileHeld(new ShooterFlywheelReverse());
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("Chassis Drive Straight: kForward", new ChassisDriveStraight(0.7));
+    SmartDashboard::PutData("Chassis Drive Straight: kBackward", new ChassisDriveStraight(-0.7));
     SmartDashboard::PutData("Chassis Hold Position", new ChassisHoldPosition());
     SmartDashboard::PutData("Shooter Initialize", new ShooterInitialize());
     SmartDashboard::PutData("Shooter Prematch Position", new ShooterPrematchPosition());

@@ -114,11 +114,13 @@ bool Shooter::ShooterAtMax() {
 float Shooter::GetShooterElevation() {
 	// cos(A) = b^2 + c^2 - a^2 / 2ab
 	float raw = elevationEncoder->GetRaw();		// c
-	float angle = (kShooterLength * kShooterLength) + (raw * raw);		// b^2 + c^2
-
-	angle = angle - (kArmLength * kArmLength);   // b^2 + c^2 - a^2
-	angle /= 2 * kShooterLength * raw;			 // perform division component
-	return (acos(angle) * 360.0 / (M_PI * 2.0));
+	SmartDashboard::PutNumber("ShooterEncoder", raw);
+	return raw;
+//	float angle = (kShooterLength * kShooterLength) + (raw * raw);		// b^2 + c^2
+//
+//	angle = angle - (kArmLength * kArmLength);   // b^2 + c^2 - a^2
+//	angle /= 2 * kShooterLength * raw;			 // perform division component
+//	return (acos(angle) * 360.0 / (M_PI * 2.0));
 }
 
 void Shooter::KickerStop() {
