@@ -19,6 +19,7 @@
 #include "Commands/AutonomousClimbTower.h"
 #include "Commands/AutonomousCollectBall.h"
 #include "Commands/AutonomousDefault.h"
+#include "Commands/AutonomousDoNothing.h"
 #include "Commands/AutonomousDriveForwardStraight.h"
 #include "Commands/AutonomousDriveLowBarShootLow.h"
 #include "Commands/AutonomousDriveLowShootHigh.h"

@@ -15,6 +15,7 @@
 #include "Commands/AutonomousDriveThroughLowBar.h"
 #include "Commands/AutonomousDriveLowBarShootLow.h"
 #include "Commands/AutonomousDriveLowShootHigh.h"
+#include "Commands/AutonomousDoNothing.h"
 #include "Commands/AutonomousCommand.h"
 
 
@@ -53,7 +54,7 @@ void Robot::RobotInit() {
 	//Adds a sendable chooser to choose between AutonomousDriveToScore and AutonomousPickupAndScore
 	chooser = new SendableChooser();
 	chooser->AddObject("Drive To Defense", new (AutonomousDriveToDefense));
-	chooser->AddObject("Do Nothing", new (AutonomousCommand));
+	chooser->AddObject("Do Nothing", new (AutonomousDoNothing));
 	chooser->AddDefault("Drive Through LowBar", new (AutonomousDriveThroughLowBar));
 	chooser->AddObject("Drive Through LowBar Shoot Low", new (AutonomousDriveLowBarShootLow));
 	chooser->AddObject("Drive Through LowBar Shoot High", new (AutonomousDriveLowShootHigh));
