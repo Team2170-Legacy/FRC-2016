@@ -605,7 +605,7 @@ Children:
           name: Command
           type: Command
           validators: *id010
-          value: Shooter Kick Ball
+          value: Autonomous Climb Tower Part2
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: whileHeld
@@ -613,7 +613,7 @@ Children:
           validators: null
           value: whenPressed
       Base: Joystick Button
-      Name: Cycle Kicker
+      Name: Auto Climb Part2
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -663,7 +663,7 @@ Children:
           name: Command
           type: Command
           validators: *id010
-          value: Autonomous Raise and Climb
+          value: Autonomous Climb Tower Part1
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: whileHeld
@@ -671,7 +671,7 @@ Children:
           validators: null
           value: whenPressed
       Base: Joystick Button
-      Name: Joystick Button 1
+      Name: Auto Climb Part1
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id012
@@ -836,7 +836,7 @@ Children:
         validators: null
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
+        name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: Shooter Kick Ball
   - Children: []
@@ -1089,7 +1089,7 @@ Children:
         validators: *id014
         value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: false}
+        name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
     Name: Autonomous Raise and Climb
   - Children: []
@@ -1575,9 +1575,51 @@ Children:
           parameters:
           - {name: velocity, type: double, value: '-0.7'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
+        name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
     Name: Chassis Drive Straight
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id015 []
+        name: Parameter presets
+        validators: null
+        value: *id015
+      Commands: !!robotbuilder.data.properties.ListProperty
+        default: &id016 []
+        name: Commands
+        validators: *id014
+        value: *id016
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command Group
+    Name: Autonomous Climb Tower Part1
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id017 []
+        name: Parameter presets
+        validators: null
+        value: *id017
+      Commands: !!robotbuilder.data.properties.ListProperty
+        default: &id018 []
+        name: Commands
+        validators: *id014
+        value: *id018
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command Group
+    Name: Autonomous Climb Tower Part2
   Properties: {}
   Base: Commands
   Name: Commands

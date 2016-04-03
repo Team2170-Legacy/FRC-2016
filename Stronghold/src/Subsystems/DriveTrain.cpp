@@ -294,7 +294,7 @@ void  DriveTrain::ServiceMotionProfile() {
 	cANTalonRight->ProcessMotionProfileBuffer();
 }
 
-void DriveTrain::SetBrakeMode( CANSpeedController::NeutralMode Mode) {
+void DriveTrain::SetBrakeMode(CANTalon::NeutralMode Mode) {
 	cANTalonLeft->ConfigNeutralMode(Mode);
 	cANTalonSlaveLeft->ConfigNeutralMode(Mode);
 	cANTalonRight->ConfigNeutralMode(Mode);

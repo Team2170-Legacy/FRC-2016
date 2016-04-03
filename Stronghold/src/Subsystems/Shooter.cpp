@@ -129,7 +129,7 @@ void Shooter::KickerStop() {
 
 void Shooter::ShooterAim(float ElevationCmd) {
 	ElevationCmd = DEADBAND_SHOOTER(ElevationCmd, 0.15);
-	ElevationCmd *= kShooterElevateSpeed;		// use auto elevate speed as limit
+//	ElevationCmd *= kShooterElevateSpeed;		// use auto elevate speed as limit
 
 	if ((ElevationCmd > 0.0) && ShooterAtMax()) {
 		ElevationCmd = 0.0;

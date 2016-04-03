@@ -43,7 +43,7 @@ private:
 	const float kFlyWheelStop = 0.0;
 
 	const float kShooterElevateSpeed = 0.75;
-	const float kShooterLowerSpeed = -0.75;
+	const float kShooterLowerSpeed = -1.00;
 	const float kShooterStop = 0.0;
 
 	const float kKickerExtendSpeed = 1.0;
