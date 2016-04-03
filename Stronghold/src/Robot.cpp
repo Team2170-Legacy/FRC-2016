@@ -57,7 +57,7 @@ void Robot::RobotInit() {
 	chooser->AddDefault("Do Nothing", new (AutonomousDoNothing));
 	chooser->AddObject("Drive Through LowBar", new (AutonomousDriveThroughLowBar));
 	chooser->AddObject("Drive Through LowBar Shoot Low", new (AutonomousDriveLowBarShootLow));
-	chooser->AddObject("Drive Through LowBar Shoot High", new (AutonomousDriveLowShootHigh));
+	chooser->AddObject("Spy Shoot High", new (AutonomousDriveLowShootHigh));
 	chooser->AddObject("Auto Testing - Don't choose in match!!", new (AutonomousDefault));
 	SmartDashboard::PutData("Autonomous Modes", chooser);
 
