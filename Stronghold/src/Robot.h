@@ -51,7 +51,7 @@ public:
 	virtual void TestPeriodic();
 
 	//need this for chooser to work
-	SendableChooser *chooser;
+	frc::SendableChooser<frc::Command*> chooser;
 private:
 	std::shared_ptr<Notifier> VisionService;
 	static void UpdateVision();

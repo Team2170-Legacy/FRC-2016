@@ -13,6 +13,7 @@
 #define DRIVE_TRAIN_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "CANTalon.h"
 #include "../MaxSonarEZ1.h"
 #include "../ProfileData.h"
 #include <cmath>
@@ -74,6 +75,9 @@ private:
 	CircularBuffer<float> AccelBufferX;
 	CircularBuffer<float> AccelBufferY;
 	CircularBuffer<float> AccelBufferZ;
+
+ 	const float fSpeedScale;
+
 
 public:
 	DriveTrain();
